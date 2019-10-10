@@ -18,3 +18,11 @@
   - 处理付款结果回调
   - 查询付款结果
   - 对账单下载
+
+## 配置项
+
+- `app_id` 商户id
+- `secret_key` api 秘钥
+- `api_client_cert_path` 证书pem路径
+- `api_client_key_path` 证书秘钥pem路径
+- `root_ca_path` CA证书
