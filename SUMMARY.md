@@ -6,6 +6,8 @@
   * Tool
     * Gitbook
       * [Gitbook 起步](编程/Tool/Gitbook/Gitbook 起步.md)
+    * Frp
+      * [安装使用](编程/Tool/Frp/安装.md)
   * Golang
   * Linux
   * PHP
