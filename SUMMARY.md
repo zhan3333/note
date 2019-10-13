@@ -10,7 +10,7 @@
       * [安装使用](编程/Tool/Frp/安装.md)
     * Docker
       * Docker-compose
-        * [个人用构建文件](编程/Tool/Docker/Docker-compose/个人用构建文件.md)
+        * [个人用构建文件](编程/Tool/Docker/Docker-Compose/个人用构建文件.md)
   * Golang
   * Linux
   * PHP
