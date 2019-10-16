@@ -1,3 +1,11 @@
 {
-  "description": "程序员笔记"
+  "description": "程序员笔记",
+  "plugins": [
+    "sitemap"
+  ],
+  "pluginsConfig": {
+    "sitemap": {
+      "hostname": "https://note.grianchan.com/"
+    }
+  }
 }
