@@ -1,11 +1,36 @@
 {
   "description": "程序员笔记",
   "plugins": [
-    "sitemap"
+    "sitemap",
+    "disqus",
+    "github",
+    "github-buttons",
+    "simple-page-toc"
   ],
   "pluginsConfig": {
     "sitemap": {
       "hostname": "https://note.grianchan.com/"
+    },
+    "disqus": {
+      "shortName": "gitbookuse"
+    },
+    "github": {
+      "url": "https://github.com/zhan3333"
+    },
+    "github-buttons": {
+      "repo": "zhan3333/note",
+      "types": [
+        "star",
+        "watch",
+        "fork"
+      ],
+      "size": "small"
+    },
+    "pluginsConfig": {
+      "simple-page-toc": {
+        "maxDepth": 3,
+        "skipFirstH1": true
+      }
     }
   }
 }
