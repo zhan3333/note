@@ -3,6 +3,9 @@
 * [前言](README.md)
 
 * 编程
+  * 设计模式
+    * [设计模式六大原则](编程/DesignPatterns/设计模式六大原则.md)
+    * [工厂模式](编程/DesignPatterns/工厂模式.md)
   * Tool
     * Gitbook
       * [Gitbook 起步](编程/Tool/Gitbook/Gitbook 起步.md)
@@ -17,3 +20,5 @@
     * 支付
       * QQ钱包
         * [QQ 钱包 Laravel 扩展开发](编程/PHP/支付/QQ钱包/QQ 钱包 Laravel 扩展开发.md)
+    * Composer
+      * [国内切换阿里云源](编程/PHP/Composer/国内切换阿里云源.md)

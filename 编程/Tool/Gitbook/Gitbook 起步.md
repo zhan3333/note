@@ -16,3 +16,9 @@
 ## 参考文档
 
 - [`gitbook` 中文文档](https://chrisniael.gitbooks.io/gitbook-documentation/content/)
+
+## 提交SEO
+
+- [百度链接提交入口](https://ziyuan.baidu.com/linksubmit/url)
+- [Google网站登录口](https://www.google.com/webmasters/tools/submit-url)
+- [Bing](https://blogs.bing.com/webmaster/september-2018/Anonymous-URL-Submission-Tool-Being-Retired)
