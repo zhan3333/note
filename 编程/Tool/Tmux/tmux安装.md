@@ -20,7 +20,7 @@ sudo yum install gcc
 
 `libevent not found`
 
-Centos
+CentOS
 
 ```shell
 sudo yum install libevent-devel
@@ -34,8 +34,15 @@ sudo yum install libevent-dev
 
 `curses not found`
 
+CentOS
+
 ```shell
  sudo yum install ncurses-devel
+```
+
+Ubuntu
+```
+sudo apt-get install ncurses-dev
 ```
 
 ## 配置
