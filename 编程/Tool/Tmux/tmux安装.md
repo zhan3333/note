@@ -54,4 +54,31 @@ ln -s -f .tmux/.tmux.conf
 cp .tmux/.tmux.conf.local .
 ```
 
-## tmux 安装 
+## tmux 安装 Resurrect
+
+[resurrect](https://github.com/tmux-plugins/tmux-resurrect)
+
+```shell
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+```
+
+vim ~/.tmux.conf.local
+
+```vim
+ set -g @tpm_plugins '          \
+   tmux-plugins/tpm             \
+   tmux-plugins/tmux-sensible   \
+   tmux-plugins/tmux-resurrect  \
+ '
+
+set -g @resurrect-save 'S'
+set -g @resurrect-restore 'R'
+
+run '~/.tmux/plugins/tpm/tpm'
+```
+
+在tmux中使用快捷键
+
+`prefix + shift + i`安装插件
+`prefix + shift + s` 保存
+`prefix + shift + r` 重载
