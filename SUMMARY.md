@@ -23,6 +23,7 @@
     * [ssh设置别名](编程/Linux/ssh设置别名.md)
     * [tar命令](编程/Linux/tar.md)
     * [查看所有用户Crontab](/编程/Linux/查看所有crontab.md)
+    * [ssh执行命令](/编程/Linux/ssh执行命令.md)
   * MySQL
     * [MySQL导出及导入应用](编程/MySQL/MySQL导出及导入应用.md)
   * PHP
