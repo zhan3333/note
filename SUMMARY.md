@@ -10,7 +10,12 @@
     * [工厂模式](编程/DesignPatterns/工厂模式.md)
     * [抽象工厂模式](编程/DesignPatterns/抽象工厂模式.md)
     * [单例模式](编程/DesignPatterns/单例模式.md)
-    * [对象池模式](编程)
+    * [对象池模式](编程/DesignPatterns/对象池模式.md)
+    * [代理模式](编程/DesignPatterns/代理模式.md)
+    * [建造者模式](编程/DesignPatterns/建造者模式.md)
+    * [外观模式](编程/DesignPatterns/外观模式.md)
+    * [装饰模式](编程/DesignPatterns/装饰模式.md)
+    * [Laravel中用到的设计模式](编程/DesignPatterns/Laravel中用到的设计模式.md)
   * Golang
     * [常见错误](编程/Golang/常见错误)
   * Linux
