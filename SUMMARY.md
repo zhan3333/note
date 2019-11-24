@@ -20,6 +20,8 @@
   * Golang
     * [常见错误](编程/Golang/常见错误)
   * Linux
+    * [wine]
+      * [wine-deepin wechat 乱码问题解决](wine-deepin wechat 乱码问题解决.md)
     * [公私钥对](编程/Linux/公私钥对.md)
     * [用户相关](编程/Linux/用户相关.md)
     * [fail2ban](编程/Linux/fail2ban.md)
