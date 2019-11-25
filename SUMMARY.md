@@ -18,6 +18,7 @@
     * [Laravel中用到的设计模式](编程/DesignPatterns/Laravel中用到的设计模式.md)
     * [享元模式](编程/DesignPatterns/享元模式.md)
     * [适配器模式](编程/DesignPatterns/适配器模式.md)
+    * [职责链模式](编程/DesignPatterns/职责链模式.md)
   * Golang
     * [常见错误](编程/Golang/常见错误)
   * Linux
