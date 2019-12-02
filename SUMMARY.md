@@ -21,6 +21,7 @@
     * [职责链模式](编程/DesignPatterns/职责链模式.md)
     * [中介者模式](编程/DesignPatterns/中介者模式.md)
     * [状态模式](编程/DesignPatterns/状态模式.md)
+    * [策略模式](编程/DesignPatterns/策略模式.md)
   * Golang
     * [常见错误](编程/Golang/常见错误)
   * Linux
