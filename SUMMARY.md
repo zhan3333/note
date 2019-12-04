@@ -25,7 +25,7 @@
   * Golang
     * [常见错误](编程/Golang/常见错误)
   * Linux
-    * [wine]
+    * wine
       * [wine-deepin wechat 乱码问题解决](wine-deepin wechat 乱码问题解决.md)
     * [公私钥对](编程/Linux/公私钥对.md)
     * [用户相关](编程/Linux/用户相关.md)
@@ -39,6 +39,8 @@
     * [ssh执行命令](/编程/Linux/ssh执行命令.md)
     * [查看Linux信息](/编程/Linux/查看Linux信息.md)
     * [Ubuntu安装](/编程/Linux/Ubuntu安装.md)
+    * [Ubuntu安装桌面配置工具](/编程/Linux/Ubuntu安装桌面配置工具.md)
+    * [Ubuntu上安装小飞机](/编程/Linux/Ubuntu上安装小飞机.md)
   * MySQL
     * [MySQL导出及导入应用](编程/MySQL/MySQL导出及导入应用.md)
   * PHP
