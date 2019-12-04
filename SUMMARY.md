@@ -38,6 +38,7 @@
     * [查看所有用户Crontab](/编程/Linux/查看所有crontab.md)
     * [ssh执行命令](/编程/Linux/ssh执行命令.md)
     * [查看Linux信息](/编程/Linux/查看Linux信息.md)
+    * [Ubuntu安装](/编程/Linux/Ubuntu安装.md)
   * MySQL
     * [MySQL导出及导入应用](编程/MySQL/MySQL导出及导入应用.md)
   * PHP
