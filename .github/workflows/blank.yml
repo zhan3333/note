@@ -7,19 +7,10 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v1
-    - name: Use Node
-      with:
-        node-version: "10.x"
-        
-    - name: Setup env
-      env: 
-        PRIVATE_KEY: ${{GITHUB_SSH_PRIVATE_KEY}}
-      run: |
-        mkdir -p ~/.ssh/
-        echo "$PRIVATE_KEY" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan github.com >> ~/.ssh/known_hosts
-        ssh -T git@github.com
-   
+    steps:      
+      - name: Setup Node.js for use with actions
+        uses: actions/setup-node@v1.1.0
+        run: |
+            ls
+            pwd
+            npm -v
