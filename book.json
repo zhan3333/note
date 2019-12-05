@@ -5,7 +5,8 @@
     "disqus",
     "github",
     "github-buttons",
-    "simple-page-toc"
+    "simple-page-toc",
+    "edit-link"
   ],
   "pluginsConfig": {
     "sitemap": {
@@ -23,14 +24,16 @@
         "star",
         "watch",
         "fork"
-      ],
-      "size": "small"
+      ]
     },
-    "pluginsConfig": {
-      "simple-page-toc": {
-        "maxDepth": 3,
-        "skipFirstH1": true
-      }
+    "edit-link": {
+      "base": "https://github.com/zhan3333/note",
+      "label": "编辑本页"
+    },
+    "size": "small",
+    "simple-page-toc": {
+      "maxDepth": 3,
+      "skipFirstH1": true
     }
   }
 }
