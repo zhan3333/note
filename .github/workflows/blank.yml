@@ -9,9 +9,17 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Run a one-line script
-      run: echo Hello, world!
-    - name: Run a multi-line script
+    - name: Use Node
+      with:
+        node-version: "10.x"
+        
+    - name: Setup env
+      env: 
+        PRIVATE_KEY: ${{GITHUB_SSH_PRIVATE_KEY}}
       run: |
-        echo Add other actions to build,
-        echo test, and deploy your project.
+        mkdir -p ~/.ssh/
+        echo "$PRIVATE_KEY" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan github.com >> ~/.ssh/known_hosts
+        ssh -T git@github.com
+   
