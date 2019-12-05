@@ -1,4 +1,4 @@
-name: CI
+name: Build Gitbook and upload to self server
 
 on: [push]
 
@@ -20,7 +20,6 @@ jobs:
           npm install -g gitbook-cli
           gitbook install
           gitbook build
-          ls
 
       - name: copy dir to remote server
         uses: appleboy/scp-action@master
