@@ -1,6 +1,6 @@
 #! /bin/bash
 
-DATETIME = $(date +%Y%m%d)
+DATETIME=$(date +%Y%m%d)
 
 git pull
 gitbook install
