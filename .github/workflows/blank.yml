@@ -22,13 +22,11 @@ jobs:
           gitbook build
           ls
 
-      - name: executing remote ssh commands
-        uses: appleboy/ssh-action@master
+      - name: copy file via ssh password
+        uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOST }}
-          username: ${{ secrets.USER }}
-          key: ${{secrets.KEY}}
-          script: |
-            cd /home/wwwroot/note.grianchan.com
-            ls
-            
+          username: ${{ secrets.USERNAME }}
+          source: "_book"
+          target: ${{secrets.DIR}}
+          rm: true
