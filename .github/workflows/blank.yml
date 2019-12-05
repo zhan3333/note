@@ -8,12 +8,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:      
-      - name: Setup Node.js for use with actions
-        uses: actions/setup-node@v1.1.0
-        
+      
       - name: Check out source code
         uses: actions/checkout@v1
         
+      - name: Setup Node.js for use with actions
+        uses: actions/setup-node@v1.1.0
+        
+      - name: build
+        run: |
+          npm install -g gitbook-cli
+          gitbook install
+          gitbook build
+          ls
+
       - name: executing remote ssh commands
         uses: appleboy/ssh-action@master
         with:
@@ -21,6 +29,6 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{secrets.KEY}}
           script: |
-            whoami
+            cd /home/wwwroot/note.grianchan.com
             ls
-            pwd
+            
