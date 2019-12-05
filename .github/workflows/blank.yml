@@ -10,9 +10,17 @@ jobs:
     steps:      
       - name: Setup Node.js for use with actions
         uses: actions/setup-node@v1.1.0
-      
-      - name: insetall
-        run: |
+        
+      - name: Check out source code
+        uses: actions/checkout@v1
+        
+      - name: executing remote ssh commands
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          key: ${{secrets.GITHUB_SSH_PRIVATE_KEY}}
+          script: |
+            whoami
             ls
             pwd
-            npm -v
