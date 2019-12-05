@@ -14,19 +14,20 @@ jobs:
         
       - name: Setup Node.js for use with actions
         uses: actions/setup-node@v1.1.0
-        
-      - name: build
+
+      - name: install
         run: |
           npm install -g gitbook-cli
           gitbook install
           gitbook build
           ls
 
-      - name: copy file via ssh password
+      - name: copy dir to remote server
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           source: "_book"
           target: ${{secrets.DIR}}
+          key: ${{secrets.KEY}}
           rm: true
