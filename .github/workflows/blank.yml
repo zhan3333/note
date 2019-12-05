@@ -1,0 +1,32 @@
+name: Build Gitbook and upload to self server
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:      
+      
+      - name: Check out source code
+        uses: actions/checkout@v1
+        
+      - name: Setup Node.js for use with actions
+        uses: actions/setup-node@v1.1.0
+
+      - name: install
+        run: |
+          npm install -g gitbook-cli
+          gitbook install
+          gitbook build
+
+      - name: copy dir to remote server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          source: "_book"
+          target: ${{secrets.DIR}}
+          key: ${{secrets.KEY}}
+          rm: true
