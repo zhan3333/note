@@ -19,7 +19,7 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
-          key: ${{secrets.GITHUB_SSH_PRIVATE_KEY}}
+          key: ${{secrets.KEY}}
           script: |
             whoami
             ls
