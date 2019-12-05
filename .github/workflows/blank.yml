@@ -10,6 +10,8 @@ jobs:
     steps:      
       - name: Setup Node.js for use with actions
         uses: actions/setup-node@v1.1.0
+      
+      - name: insetall
         run: |
             ls
             pwd
