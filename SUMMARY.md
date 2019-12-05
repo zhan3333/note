@@ -25,6 +25,11 @@
     * [模板方法模式](编程/DesignPatterns/模板方法模式.md)
   * Golang
     * [常见错误](编程/Golang/常见错误)
+  * 前端
+    * [CentOS安装node环境](编程/前端/CentOS安装node环境.md)
+    * [npm安装更新](编程/前端/npm安装更新.md)
+    * [npm换源](编程/前端/npm换源.md)
+    * [Ubuntu安装node环境](编程/前端/Ubuntu安装node环境.md)
   * Linux
     * wine
       * [wine-deepin wechat 乱码问题解决](wine-deepin wechat 乱码问题解决.md)
@@ -64,4 +69,5 @@
       * [不常见的使用](编程/Tool/Git/不常见的使用.md)
     * Gitbook
       * [Gitbook 起步](编程/Tool/Gitbook/Gitbook 起步.md)
+      * [使用github Actions来自动build gitbook上传到服务器](编程/Tool/Gitbook/使用github Actions来自动build上传到服务器.md)
       
