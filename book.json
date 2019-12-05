@@ -2,38 +2,64 @@
   "description": "程序员笔记",
   "plugins": [
     "sitemap",
-    "disqus",
     "github",
     "github-buttons",
     "simple-page-toc",
-    "edit-link"
+    "edit-link",
+    "copy-code-button",
+    "gittalk",
+    "expandable-chapters",
+    "splitter",
+    "baidu-tongji",
+    "anchor-navigation-ex"
   ],
   "pluginsConfig": {
     "sitemap": {
       "hostname": "https://note.grianchan.com/"
     },
-    "disqus": {
-      "shortName": "gitbookuse"
-    },
     "github": {
       "url": "https://github.com/zhan3333"
     },
     "github-buttons": {
-      "repo": "zhan3333/note",
-      "types": [
-        "star",
-        "watch",
-        "fork"
+      "buttons": [
+        {
+          "user": "zhan3333",
+          "repo": "note",
+          "type": "star",
+          "size": "small"
+        },
+        {
+          "user": "zhan3333",
+          "type": "follow",
+          "size": "small",
+          "count": false
+        }
       ]
     },
     "edit-link": {
-      "base": "https://github.com/zhan3333/note",
+      "base": "https://github.com/zhan3333/note/blob/master",
       "label": "编辑本页"
     },
     "size": "small",
     "simple-page-toc": {
       "maxDepth": 3,
       "skipFirstH1": true
+    },
+    "gittalk": {
+      "clientID": "f3f090f32cd699ced1e0",
+      "clientSecret": "418e38be30a228e7f824f5cefbc0a9c66ed65ec5",
+      "repo": "note",
+      "owner": "zhan3333",
+      "admin": [
+        "zhan3333"
+      ],
+      "distractionFreeMode": false
+    },
+    "baidu-tongji": {
+      "token": "c0ea51a59e43824b86dd1cdb4d773734"
+    },
+    "anchor-navigation-ex": {
+      "showLevel": false
     }
   }
 }
