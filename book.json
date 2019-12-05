@@ -10,7 +10,7 @@
     "gittalk",
     "expandable-chapters",
     "splitter",
-    "baidu-tongji",
+    "3-ba",
     "anchor-navigation-ex"
   ],
   "pluginsConfig": {
@@ -55,7 +55,7 @@
       ],
       "distractionFreeMode": false
     },
-    "baidu-tongji": {
+    "3-ba": {
       "token": "c0ea51a59e43824b86dd1cdb4d773734"
     },
     "anchor-navigation-ex": {
