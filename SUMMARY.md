@@ -63,11 +63,22 @@
     * Docker
       * Docker-compose
         * [个人用构建文件](编程/Tool/Docker/Docker-Compose/个人用构建文件.md)
+      * [Ubuntu 19.10 无法安装Docker](编程/Tool/Ubuntu 19.10 无法安装Docker.md)
     * Frp
       * [安装使用](编程/Tool/Frp/安装.md)
+      * [frp 配置 smb](编程/Tool/Frp/frp 配置 smb.md)
     * Git
       * [不常见的使用](编程/Tool/Git/不常见的使用.md)
     * Gitbook
       * [Gitbook 起步](编程/Tool/Gitbook/Gitbook 起步.md)
       * [使用github Actions来自动build gitbook上传到服务器](编程/Tool/Gitbook/使用github Actions来自动build上传到服务器.md)
-      
+    * OwnCloud
+      * [owncloud 配置 smb](编程/Tool/OwnCloud/owncloud 配置 smb.md)
+      * [owncloud 安装](编程/Tool/OwnCloud/owncloud 安装.md)
+    * PHPStorm
+      * [关闭自动保存](编程/Tool/PHPStorm/关闭自动保存.md)
+    * Tmux
+      * [tmux安装](编程/Tool/Tmux/tmux安装.md)
+    * VSCode
+      * [linux下vscode terminal字体设置](编程/Tool/VSCode/linux下vscode terminal字体设置.md)
+      * [ssh远程开发](编程/Tool/VSCode/ssh远程开发.md)
