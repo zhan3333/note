@@ -15,7 +15,7 @@
 1. 在`https://nodejs.org/en/download/`上复制 `Linux Binaries(x64) ` 链接
 2. `wget https://nodejs.org/dist/v12.13.1/node-v12.13.1-linux-x64.tar.xz`
 3. `tar -xvf node-v12.13.1-linux-x64.tar.xz`
-4. `cp node-v12.13.1-linux-x64 /usr/local/node`
+4. `cp -r node-v12.13.1-linux-x64 /usr/local/node`
 5. `ln -s /usr/local/node/bin/node /usr/local/bin/node`
 6. `ln -s /usr/local/node/bin/npm /usr/local/bin/npm`
 

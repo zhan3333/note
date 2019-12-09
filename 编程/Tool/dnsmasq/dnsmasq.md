@@ -4,7 +4,7 @@
 
 `/etc/dnsmasq.conf`
 
-`ddress=/test.com/192.168.0.31`
+`address=/test.com/192.168.0.31`
 
 ## 操作
 
