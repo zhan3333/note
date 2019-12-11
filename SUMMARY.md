@@ -48,6 +48,7 @@
     * [Ubuntu安装](/编程/Linux/Ubuntu安装.md)
     * [Ubuntu安装桌面配置工具](/编程/Linux/Ubuntu安装桌面配置工具.md)
     * [Ubuntu上安装小飞机](/编程/Linux/Ubuntu上安装小飞机.md)
+    * [axel多线程下载](/编程/Linux/axel多线程下载.md)
   * MySQL
     * [MySQL导出及导入应用](编程/MySQL/MySQL导出及导入应用.md)
   * PHP
