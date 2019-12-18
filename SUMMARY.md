@@ -3,6 +3,11 @@
 * [前言](README.md)
 
 * 编程
+  * 前端
+    * [CentOS安装node环境](编程/前端/CentOS安装node环境.md)
+    * [npm安装更新](编程/前端/npm安装更新.md)
+    * [npm换源](编程/前端/npm换源.md)
+    * [Ubuntu安装node环境](编程/前端/Ubuntu安装node环境.md)
   * 设计模式
     * [设计模式六大原则](编程/DesignPatterns/设计模式六大原则.md)
     * [面向对象编程设计原则SOLID](编程/DesignPatterns/面向对象编程设计原则SOLID.md)
@@ -26,11 +31,9 @@
     * [访问者模式](编程/DesignPatterns/访问者模式.md)
   * Golang
     * [常见错误](编程/Golang/常见错误)
-  * 前端
-    * [CentOS安装node环境](编程/前端/CentOS安装node环境.md)
-    * [npm安装更新](编程/前端/npm安装更新.md)
-    * [npm换源](编程/前端/npm换源.md)
-    * [Ubuntu安装node环境](编程/前端/Ubuntu安装node环境.md)
+  * Java
+    * [如何开发一个Java SDK](编程/Java/如何开发一个Java SDK.md)
+    * [学Java](编程/Java/学Java.md)
   * Linux
     * wine
       * [wine-deepin wechat 乱码问题解决](wine-deepin wechat 乱码问题解决.md)
