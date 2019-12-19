@@ -34,6 +34,7 @@
   * Java
     * [如何开发一个Java SDK](编程/Java/如何开发一个Java SDK.md)
     * [学Java](编程/Java/学Java.md)
+    * [maven 发布到仓库](编程/Java/maven发布到仓库.md)
   * Linux
     * wine
       * [wine-deepin wechat 乱码问题解决](wine-deepin wechat 乱码问题解决.md)
