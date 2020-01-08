@@ -33,4 +33,20 @@ or
 show global variables like '%wait_timeout';    --可以查看数据库空闲等待时间，默认8小时，最大2147483，接近24天
 ```
 
+设置超时时间
+
+```sql
+set global wait_timeout=28800
+```
+
 wait_timeout 选项指默认连接经过 8 小时没有向服务器发送请求时, 它就会断开这个连接
+
+查看自动提交开关
+
+```sql
+show variables like 'autocommit';
+```
+
+```sql
+set AUTOCOMMIT=1
+```
