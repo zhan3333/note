@@ -17,6 +17,10 @@ server
             try_files $uri $uri/ /index.html;
         }
 
+        location /storage {
+            root $back_root_path/;
+        }
+
         location ~ /api {
             root $back_root_path;
             try_files $uri $uri/ /index.php?$query_string;
