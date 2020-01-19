@@ -57,6 +57,7 @@
     - [axel 多线程下载](/编程/Linux/axel多线程下载.md)
   - MySQL
     - [MySQL 导出及导入应用](编程/MySQL/MySQL导出及导入应用.md)
+    - [MySQL 创建用户](编程/MySQL/MySQL创建用户.md)
   - PHP
     - 支付
       - QQ 钱包
