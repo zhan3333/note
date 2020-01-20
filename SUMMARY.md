@@ -58,6 +58,7 @@
   - MySQL
     - [MySQL 导出及导入应用](编程/MySQL/MySQL导出及导入应用.md)
     - [MySQL 创建用户](编程/MySQL/MySQL创建用户.md)
+    - [MySQL 连接数](编程/MySQL/MySQL连接数.md)
   - PHP
     - 支付
       - QQ 钱包
