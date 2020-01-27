@@ -92,3 +92,7 @@
     - VSCode
       - [linux 下 vscode terminal 字体设置](编程/Tool/VSCode/linux 下 vscode terminal 字体设置.md)
       - [ssh 远程开发](编程/Tool/VSCode/ssh远程开发.md)
+- PHP
+  - [变量](PHP/变量.md)
+  - [FPM](PHP/FPM.md)
+  - [Zend 虚拟机](PHP/Zend虚拟机.md)
