@@ -94,5 +94,8 @@
       - [ssh 远程开发](编程/Tool/VSCode/ssh远程开发.md)
 - PHP
   - [变量](PHP/变量.md)
+  - [扩展开发](PHP/扩展开发.md)
+  - [命名空间](PHP/命名空间.md)
+  - [线程安全](PHP/线程安全 md)
   - [FPM](PHP/FPM.md)
   - [Zend 虚拟机](PHP/Zend虚拟机.md)
