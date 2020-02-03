@@ -5,4 +5,5 @@
 - PHP
 - Golang
 - Linux
-
+- MySQL
+- LeetCode
