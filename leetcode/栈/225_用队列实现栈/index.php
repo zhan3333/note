@@ -22,6 +22,13 @@
 // push 时将queue1数据移到queue2中, 然后enqueue push的数据, 然后将queue2的数据转到queue1中
 // pop 直接 dequeue
 
+// 最终思路
+// a除了push时临时存一个值, 其他时候都为空
+// b存队列, head放栈顶, bottom放栈底
+
+// 2. 单队列实现思路
+// 使用计数的方式, 将队列pop出来再push
+
 class MyStack
 {
 
@@ -40,17 +47,16 @@ class MyStack
     /**
      * Push element x onto stack.
      * @param Integer $x
-     * @return NULL
      */
     function push($x)
     {
-        while (!$this->queue1->isEmpty()) {
-            $this->queue2->enqueue($this->queue1->dequeue());
-        }
         $this->queue1->enqueue($x);
         while (!$this->queue2->isEmpty()) {
             $this->queue1->enqueue($this->queue2->dequeue());
         }
+        $temp = $this->queue1;
+        $this->queue1 = $this->queue2;
+        $this->queue2 = $temp;
     }
 
     /**
@@ -59,7 +65,7 @@ class MyStack
      */
     function pop()
     {
-        return $this->queue1->dequeue();
+        return $this->queue2->dequeue();
     }
 
     /**
@@ -68,18 +74,7 @@ class MyStack
      */
     function top()
     {
-        if ($this->queue1->isEmpty()) {
-            return null;
-        }
-        $pop = $this->queue1->dequeue();
-        while (!$this->queue1->isEmpty()) {
-            $this->queue2->enqueue($this->queue1->dequeue());
-        }
-        $this->queue1->enqueue($pop);
-        while (!$this->queue2->isEmpty()) {
-            $this->queue1->enqueue($this->queue2->dequeue());
-        }
-        return $pop;
+        return $this->queue2->bottom();
     }
 
     /**
@@ -88,7 +83,7 @@ class MyStack
      */
     function empty()
     {
-        return $this->queue1->isEmpty();
+        return $this->queue2->isEmpty();
     }
 }
 
@@ -103,7 +98,7 @@ class MyStack
 $obj = new MyStack();
 $obj->push(1);
 $obj->push(2);
-var_dump($obj->top());
-var_dump($obj->pop());
-var_dump($obj->top());
-var_dump($obj->empty());
+var_dump($obj->top());  // 2
+var_dump($obj->pop());  // 2
+var_dump($obj->top());  // 1
+var_dump($obj->empty());    // false
