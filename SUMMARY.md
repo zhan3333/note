@@ -69,29 +69,6 @@
     - Swoole
       - [安装](编程/PHP/Swoole/安装.md)
     - [常见错误](编程/PHP/常见错误.md)
-  - Tool
-    - Docker
-      - Docker-compose
-        - [个人用构建文件](编程/Tool/Docker/Docker-Compose/个人用构建文件.md)
-      - [Ubuntu 19.10 无法安装 Docker](编程/Tool/Ubuntu 19.10 无法安装 Docker.md)
-    - Frp
-      - [安装使用](编程/Tool/Frp/安装.md)
-      - [frp 配置 smb](编程/Tool/Frp/frp 配置 smb.md)
-    - Git
-      - [不常见的使用](编程/Tool/Git/不常见的使用.md)
-    - Gitbook
-      - [Gitbook 起步](编程/Tool/Gitbook/Gitbook 起步.md)
-      - [使用 github Actions 来自动 build gitbook 上传到服务器](编程/Tool/Gitbook/使用 github Actions 来自动 build 上传到服务器.md)
-    - OwnCloud
-      - [owncloud 配置 smb](编程/Tool/OwnCloud/owncloud 配置 smb.md)
-      - [owncloud 安装](编程/Tool/OwnCloud/owncloud 安装.md)
-    - PHPStorm
-      - [关闭自动保存](编程/Tool/PHPStorm/关闭自动保存.md)
-    - Tmux
-      - [tmux 安装](编程/Tool/Tmux/tmux安装.md)
-    - VSCode
-      - [linux 下 vscode terminal 字体设置](编程/Tool/VSCode/linux 下 vscode terminal 字体设置.md)
-      - [ssh 远程开发](编程/Tool/VSCode/ssh远程开发.md)
 - PHP
   - [变量](PHP/变量.md)
   - [扩展开发](PHP/扩展开发.md)
@@ -99,3 +76,28 @@
   - [线程安全](PHP/线程安全 md)
   - [FPM](PHP/FPM.md)
   - [Zend 虚拟机](PHP/Zend虚拟机.md)
+- Tool
+  - Docker
+    - Docker-compose
+      - [个人用构建文件](Tool/Docker/Docker-Compose/个人用构建文件.md)
+    - [Ubuntu 19.10 无法安装 Docker](Tool/Ubuntu 19.10 无法安装 Docker.md)
+  - Frp
+    - [安装使用](Tool/Frp/安装.md)
+    - [frp 配置 smb](Tool/Frp/frp 配置 smb.md)
+  - Git
+    - [不常见的使用](Tool/Git/不常见的使用.md)
+  - Gitbook
+    - [Gitbook 起步](Tool/Gitbook/Gitbook 起步.md)
+    - [使用 github Actions 来自动 build gitbook 上传到服务器](Tool/Gitbook/使用 github Actions 来自动 build 上传到服务器.md)
+  - OwnCloud
+    - [owncloud 配置 smb](Tool/OwnCloud/owncloud 配置 smb.md)
+    - [owncloud 安装](Tool/OwnCloud/owncloud 安装.md)
+  - PHPStorm
+    - [关闭自动保存](Tool/PHPStorm/关闭自动保存.md)
+  - Tmux
+    - [tmux 安装](Tool/Tmux/tmux安装.md)
+  - VSCode
+    - [linux 下 vscode terminal 字体设置](Tool/VSCode/linux 下 vscode terminal 字体设置.md)
+    - [ssh 远程开发](Tool/VSCode/ssh远程开发.md)
+  - Jenkins
+    - [Jenkins 安装](Tool/Jenkins/Jenkins 安装.md)
