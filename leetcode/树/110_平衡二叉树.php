@@ -67,26 +67,24 @@ class Solution
      */
     function isBalanced($root)
     {
-        if ($root === null) return true;
-        $min = 0; // 最小叶子层数
-        $max = 1; // 最大叶子层数
-        $queue = [[$root, 1]];
-        while (!empty($queue)) {
-            [$tree, $deep] = array_shift($queue);
-            if ($tree !== null) {
-                if ($tree->left === null && $tree->right === null) {
-                    // 叶子节点
-                    $min = min($min, $deep);
-                }
-                $max = max($max, $deep);
-                if ($max - $min > 2) {
-                    return false;
-                }
-                $queue[] = [$tree->left, $deep + 1];
-                $queue[] = [$tree->right, $deep + 1];
-            }
+        if ($root === null) {
+            return true;
         }
-        return true;
+        return abs($this->height($root->left) - $this->height($root->right)) < 2
+            && $this->isBalanced($root->left)
+            && $this->isBalanced($root->right);
+    }
+
+    /**
+     * @param TreeNode $root
+     * @return int|mixed
+     */
+    function height($root)
+    {
+        if ($root === null) {
+            return -1;
+        }
+        return 1 + max($this->height($root->left), $this->height($root->right));
     }
 }
 
