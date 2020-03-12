@@ -48,15 +48,48 @@ class TreeNode
  */
 class Solution
 {
+    /**
+     * 使用栈来实现非反转
+     * @param $root
+     * @return array
+     */
+    function levelOrderBottom($root)
+    {
+        if (empty($root)) {
+            return [];
+        }
+        $stack = [];
+        $queue = [$root];
+        while (!empty($queue)) {
+            $oneLevel = [];
+            // 取出一整层
+            $count = count($queue);
+            for ($i = 0; $i < $count; $i++) {
+                $tree = array_shift($queue);
+                if ($tree !== null) {
+                    $oneLevel[] = $tree->val;
+                    if ($tree->left !== null) {
+                        $queue[] = $tree->left;
+                    }
+                    if ($tree->right !== null) {
+                        $queue[] = $tree->right;
+                    }
+                }
+            }
+            array_unshift($stack, $oneLevel);
+        }
+        return $stack;
+    }
+
 
     /**
-     * 队列做法 (层次遍历, BFS)
+     * 队列做法 (层次遍历, BFS), 遍历完后反转
      * 时间复杂度: O(n)
      * 空间复杂度: 最差 O(n) (线性二叉树), 最优 O(logn) (平衡二叉树)
      * @param TreeNode $root
      * @return Integer[][]
      */
-    function levelOrderBottom($root)
+    function levelOrderBottom1($root)
     {
         $queue = [[$root, 0]];
         $res = [];
