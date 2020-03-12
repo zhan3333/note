@@ -68,7 +68,7 @@ class Solution
                 $queue[] = [$tree->right, $deep + 1];
             }
         }
-        return $res;
+        return array_reverse($res);
     }
 }
 
