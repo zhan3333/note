@@ -35,6 +35,37 @@ class ListNode
  */
 class Solution
 {
+    /**
+     * 使用O(1) 空间复杂度来实现
+     * @param ListNode $l1
+     * @param ListNode $l2
+     * @return null
+     */
+    function mergeTwoLists($l1, $l2)
+    {
+        $l3 = new ListNode(0);
+        $cur = $l3;
+        while ($l1 !== null || $l2 !== null) {
+            if ($l1 === null) {
+                $cur->next = $l2;
+                $l2 = $l2->next;
+            } elseif ($l2 === null) {
+                $cur->next = $l1;
+                $l1 = $l1->next;
+            } else {
+                if ($l1->val > $l2->val) {
+                    $cur->next = $l2;
+                    $l2 = $l2->next;
+                } else {
+                    $cur->next = $l1;
+                    $l1 = $l1->next;
+                }
+            }
+            $cur = $cur->next;
+        }
+        return $l3->next;
+    }
+
 
     /**
      * 空间复杂度: O(m+n)
@@ -43,7 +74,7 @@ class Solution
      * @param ListNode $l2
      * @return ListNode
      */
-    function mergeTwoLists($l1, $l2)
+    function mergeTwoLists1($l1, $l2)
     {
         $l3 = new ListNode(0);
         $cur = $l3;
