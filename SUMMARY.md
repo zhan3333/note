@@ -2,34 +2,51 @@
 
 - [前言](README.md)
 
+- 设计模式
+    - [设计模式六大原则](DesignPatterns/设计模式六大原则.md)
+    - [面向对象编程设计原则 SOLID](DesignPatterns/面向对象编程设计原则SOLID.md)
+    - [什么是接口](DesignPatterns/什么是接口.md)
+    - [工厂模式](DesignPatterns/工厂模式.md)
+    - [抽象工厂模式](DesignPatterns/抽象工厂模式.md)
+    - [单例模式](DesignPatterns/单例模式.md)
+    - [对象池模式](DesignPatterns/对象池模式.md)
+    - [代理模式](DesignPatterns/代理模式.md)
+    - [建造者模式](DesignPatterns/建造者模式.md)
+    - [外观模式](DesignPatterns/外观模式.md)
+    - [装饰模式](DesignPatterns/装饰模式.md)
+    - [Laravel 中用到的设计模式](DesignPatterns/Laravel中用到的设计模式.md)
+    - [享元模式](DesignPatterns/享元模式.md)
+    - [适配器模式](DesignPatterns/适配器模式.md)
+    - [职责链模式](DesignPatterns/职责链模式.md)
+    - [中介者模式](DesignPatterns/中介者模式.md)
+    - [状态模式](DesignPatterns/状态模式.md)
+    - [策略模式](DesignPatterns/策略模式.md)
+    - [模板方法模式](DesignPatterns/模板方法模式.md)
+    - [访问者模式](DesignPatterns/访问者模式.md)
+- MySQL
+    - [MySQL 导出及导入应用](MySQL/MySQL导出及导入应用.md)
+    - [MySQL 创建用户](MySQL/MySQL创建用户.md)
+    - [MySQL 连接数](MySQL/MySQL连接数.md)
+- PHP
+  - [变量](PHP/变量.md)
+  - [扩展开发](PHP/扩展开发.md)
+  - [命名空间](PHP/命名空间.md)
+  - [线程安全](PHP/线程安全 md)
+  - [FPM](PHP/FPM.md)
+  - [Zend 虚拟机](PHP/Zend虚拟机.md)
+- RabbitMQ
+    - [RabbitMQ](RabbitMQ/RabbitMQ.md)
+- Redis
+    - [Redis](Redis/Redis.md)
+- Swoole
+    - [Swoole](Swoole/Swoole.md)
 - 编程
   - 前端
     - [CentOS 安装 node 环境](编程/前端/CentOS安装node环境.md)
     - [npm 安装更新](编程/前端/npm安装更新.md)
     - [npm 换源](编程/前端/npm换源.md)
     - [Ubuntu 安装 node 环境](编程/前端/Ubuntu安装node环境.md)
-  - 设计模式
-    - [设计模式六大原则](编程/DesignPatterns/设计模式六大原则.md)
-    - [面向对象编程设计原则 SOLID](编程/DesignPatterns/面向对象编程设计原则SOLID.md)
-    - [什么是接口](编程/DesignPatterns/什么是接口.md)
-    - [工厂模式](编程/DesignPatterns/工厂模式.md)
-    - [抽象工厂模式](编程/DesignPatterns/抽象工厂模式.md)
-    - [单例模式](编程/DesignPatterns/单例模式.md)
-    - [对象池模式](编程/DesignPatterns/对象池模式.md)
-    - [代理模式](编程/DesignPatterns/代理模式.md)
-    - [建造者模式](编程/DesignPatterns/建造者模式.md)
-    - [外观模式](编程/DesignPatterns/外观模式.md)
-    - [装饰模式](编程/DesignPatterns/装饰模式.md)
-    - [Laravel 中用到的设计模式](编程/DesignPatterns/Laravel中用到的设计模式.md)
-    - [享元模式](编程/DesignPatterns/享元模式.md)
-    - [适配器模式](编程/DesignPatterns/适配器模式.md)
-    - [职责链模式](编程/DesignPatterns/职责链模式.md)
-    - [中介者模式](编程/DesignPatterns/中介者模式.md)
-    - [状态模式](编程/DesignPatterns/状态模式.md)
-    - [策略模式](编程/DesignPatterns/策略模式.md)
-    - [模板方法模式](编程/DesignPatterns/模板方法模式.md)
-    - [访问者模式](编程/DesignPatterns/访问者模式.md)
-  - Golang
+  - GoLang
     - [常见错误](编程/Golang/常见错误)
     - [go mod 设置代理](编程/Golang/go mod 设置代理.md)
     - [golang Http 请求](编程/Golang/golang Http 请求.md)
@@ -55,10 +72,6 @@
     - [Ubuntu 安装桌面配置工具](/编程/Linux/Ubuntu安装桌面配置工具.md)
     - [Ubuntu 上安装小飞机](/编程/Linux/Ubuntu上安装小飞机.md)
     - [axel 多线程下载](/编程/Linux/axel多线程下载.md)
-  - MySQL
-    - [MySQL 导出及导入应用](编程/MySQL/MySQL导出及导入应用.md)
-    - [MySQL 创建用户](编程/MySQL/MySQL创建用户.md)
-    - [MySQL 连接数](编程/MySQL/MySQL连接数.md)
   - PHP
     - 支付
       - QQ 钱包
@@ -69,13 +82,6 @@
     - Swoole
       - [安装](编程/PHP/Swoole/安装.md)
     - [常见错误](编程/PHP/常见错误.md)
-- PHP
-  - [变量](PHP/变量.md)
-  - [扩展开发](PHP/扩展开发.md)
-  - [命名空间](PHP/命名空间.md)
-  - [线程安全](PHP/线程安全 md)
-  - [FPM](PHP/FPM.md)
-  - [Zend 虚拟机](PHP/Zend虚拟机.md)
 - Tool
   - Docker
     - Docker-compose
@@ -94,7 +100,7 @@
     - [owncloud 安装](Tool/OwnCloud/owncloud 安装.md)
   - PHPStorm
     - [关闭自动保存](Tool/PHPStorm/关闭自动保存.md)
-  - Tmux
+  - tmux
     - [tmux 安装](Tool/Tmux/tmux安装.md)
   - VSCode
     - [linux 下 vscode terminal 字体设置](Tool/VSCode/linux 下 vscode terminal 字体设置.md)
