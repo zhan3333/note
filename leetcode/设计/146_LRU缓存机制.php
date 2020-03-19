@@ -30,17 +30,27 @@
 Class ListNode
 {
     public $key = null;
+    public $value = null;
     /** @var ListNode */
     public $next = null;
     /** @var ListNode */
     public $prev = null;
 
-    public function __construct($key)
+    public function __construct($key, $value = null)
     {
         $this->key = $key;
+        $this->value = $value;
     }
 }
 
+/**
+ * 题目要求 get, put 均为 O(1) 时间复杂度, 并且能淘汰做不常使用的key
+ * 显然, hash get, put 复杂度为 O(1)
+ * 而淘汰不常用的key, 需要用 O(1) 复杂度删除, 可以选择使用双向链表, 可以 O(1) 来操作删除
+ * 使用双向链表 + hash表实现
+ *
+ * Class LRUCache
+ */
 class LRUCache
 {
     private $capacity;
@@ -64,10 +74,7 @@ class LRUCache
     function removeHeadNode()
     {
         $node = $this->head->next;
-        $next = $node->next;
-        $this->head->next = $next;
-        $next->prev = $this->head;
-        unset($node);
+        $this->removeNode($node);
     }
 
     function removeNode(ListNode $node)
@@ -76,15 +83,25 @@ class LRUCache
         $next = $node->next;
         $prev->next = $next;
         $next->prev = $prev;
+        unset($this->hash[$node->key]);
+    }
+
+    function moveNodeToTail(ListNode $node)
+    {
+        $this->removeNode($node);
+        $this->addNodeToTail($node);
     }
 
     function addNodeToTail(ListNode $node)
     {
+        $next = $this->tail;
         $prev = $this->tail->prev;
+        $node->next = $next;
+        $next->prev = $node;
         $prev->next = $node;
         $node->prev = $prev;
-        $this->tail->prev = $node;
-        $node->next = $this->tail;
+
+        $this->hash[$node->key] = $node;
     }
 
     /**
@@ -94,11 +111,10 @@ class LRUCache
     function get($key)
     {
         if (isset($this->hash[$key])) {
-            [$val, $node] = $this->hash[$key];
+            $node = $this->hash[$key];
             // 将节点放到队列尾
-            $this->removeNode($node);
-            $this->addNodeToTail(new ListNode($val));
-            return $val;
+            $this->moveNodeToTail($node);
+            return $node->value;
         }
         return -1;
     }
@@ -111,20 +127,15 @@ class LRUCache
     function put($key, $value)
     {
         if (isset($this->hash[$key])) {
-            [$val, $node] = $this->hash[$key];
+            $node = $this->hash[$key];
             $this->removeNode($node);
-            unset($this->hash[$key]);
         } elseif (count($this->hash) === $this->capacity) {
             // 超出容量了, 移除队列头部
             $this->removeHeadNode();
         }
         // 增加key
-        $node = new ListNode($value);
+        $node = new ListNode($key, $value);
         $this->addNodeToTail($node);
-        $this->hash[$key] = [$value, $node];
-        array_map(function ($val) {
-            var_dump($val[0]);
-        }, $this->hash);
     }
 }
 
@@ -139,10 +150,9 @@ $obj = new LRUCache(2);
 
 $obj->put(1, 1);
 $obj->put(2, 2);
-//var_dump($obj->get(1));   // 1
-//$obj->put(3, 3); // 2被淘汰了
-//var_dump($obj->get(2)); // -1
-//$obj->put(4, 4); // 1淘汰了
-//var_dump($obj->get(1));   // -1
-//var_dump($obj->get(3));   // 3
-//var_dump($obj->get(4));   // 4
+var_dump($obj->get(1));   // 1
+$obj->put(3, 3); // 2被淘汰了
+var_dump($obj->get(2)); // -1
+$obj->put(4, 4); // 1淘汰了
+var_dump($obj->get(3));   // 3
+var_dump($obj->get(4));   // 4
