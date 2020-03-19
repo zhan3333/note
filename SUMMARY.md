@@ -107,3 +107,10 @@
     - [ssh 远程开发](Tool/VSCode/ssh远程开发.md)
   - Jenkins
     - [Jenkins 安装](Tool/Jenkins/Jenkins 安装.md)
+- 网络
+    [网络](网络/网络.md)
+- 设计
+    [设计](设计/设计.md)
+- 面试
+    [面试](面试/面试方向统计.md)
+    
