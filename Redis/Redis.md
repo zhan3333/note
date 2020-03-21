@@ -108,6 +108,7 @@
     1. Redis订阅 mysql binlog消息
     2. 依据消息来进行相关操作
     
+
 ### Redis 缓存穿透
 
 起因: 恶意请求故意大量查询不存在的key, 让请求到达MySQL, 对后端造成很大压力
@@ -240,6 +241,7 @@ Redis 是一款高性能的缓存储存系统, 支持多种数据格式, 能够�
         - 主进程持续把变动写到内存里的 Buffer, 同时也会把这些新的变动写到旧的 AOF 中
         - 当子进程完成文件的重写后, 主进程会得到一个信号, 然后将内存里的 Buffer 追加到子进程生成的新 AOF 中
         
+
 ### Redis 内存淘汰策略, ttl 指令底层实现
 
 - volatile-lru: 设置了过期时间的数据集中的淘汰最少使用的key
@@ -292,7 +294,7 @@ Redis 是一款高性能的缓存储存系统, 支持多种数据格式, 能够�
             - 第二个节点保存元素的 score 域
         - 按照 score 从小到大排序, 如果 score 相同, 那么按字典序对 member 进行对比
         - 查找元素时间复杂度 O(n)
-        - 添加删除更新都需啊哟执行一次查找元素的操作, 所以这些函数的复杂度都不低于 O(n)
+        - 添加删除更新都需要执行一次查找元素的操作, 所以这些函数的复杂度都不低于 O(n)
     - skiplist (跳跃表): 数据结构中同时使用 dict(字典) 和 zskiplist (跳跃表) 来保存 zset 元素
         - 按从小到大的顺序储存分数, 值为 [score, value] 对
         - 元素成员由 redisObject 结构表示, dict, zskiplist 都指向这个对象, 用来节约空间
@@ -319,10 +321,10 @@ Redis 是一款高性能的缓存储存系统, 支持多种数据格式, 能够�
     - 插入某个元素的时候, 先从最高层开始, 当跳到比目标值大的元素后, 回退到上一个元素, 用该元素的下一层连接进行遍历, 周而复始知道第一层连接,
     最终在第一层连接中找到合适的位置
 - 为什么用跳表不用平衡树
-    - 需要做范围查找, 在范围查找的时候, 平衡树比 skiplist 操作要复杂. 在平衡树上, 找到指定范围的小值之后, 还需要以中序遍历继续
+    - (单界好查, 双界难查)需要做范围查找, 在范围查找的时候, 平衡树比 skiplist 操作要复杂. 在平衡树上, 找到指定范围的小值之后, 还需要以中序遍历继续
     寻找其它不大于大值的节点. 而 skiplist 上进行范围查找就非常简单.
-    - 平衡树的插入和删除可能引发子树的调整, 逻辑复杂, 而 skiplist 的插入和删除只需要修改相邻节点的指针
-    - 从内存上来说, skiplist 比平衡树更灵活一些. 一般来说, 平衡树每个节点包含两个指针(左右子树), 而 skiplist 每个节点包含的指针数目较低.
+    - (插入删除耗时) 平衡树的插入和删除可能引发子树的调整, 逻辑复杂, 而 skiplist 的插入和删除只需要修改相邻节点的指针
+    - (更耗内存) 从内存上来说, skiplist 比平衡树更灵活一些. 一般来说, 平衡树每个节点包含两个指针(左右子树), 而 skiplist 每个节点包含的指针数目较低.
 
 ### redis key 的过期策略
 
@@ -346,6 +348,7 @@ Redis 是一款高性能的缓存储存系统, 支持多种数据格式, 能够�
 - Rehash
     - Dict 中有两个hash表, 目的在于扩容或缩容时的迁移
     
+
 ### (2) Redis 哨兵和集群
 
 - 集群的解决方案有三种
@@ -390,7 +393,303 @@ Redis 是一款高性能的缓存储存系统, 支持多种数据格式, 能够�
             - 从节点用于复制某个主节点, 并在被复制的主节点下线时, 代替下线的主节点继续处理命令请求.
             - 新加入节点时, 会将原来的节点中的一部分槽移动到新节点中
 
-### (4) Redis 数据结构的底层实现
+### (4) Redis 底层数据结构
+
+- Dict
+    - 哈希表实现
+    - 结构
+        - dict 字典结构
+            - type
+            - privdata
+            - ht[2] 哈希表, 两个哈希表主要为了扩容或缩容使用
+            - rehashidx rehash 索引, 当 rehash 不再进行时, 值为 -1
+            - iterators 迭代器数量
+        - dictht 哈希表
+            - dictEntry **table  哈希节点数组
+            - size 哈希表大小
+            - sizemask 哈希表大小掩码, 用于计算索引值, 等于 size - 1
+            - used 已有节点数量
+        - dictEntry 哈希节点
+            - key
+            - v
+            - next 指向下一哈希表节点, 形成链表
+    - 特点
+        - rehash: 当链表需要扩容或缩容时, 通过 ht[2] 这两个 hash 表进行
+- SDS 简单动态字符串
+    - 结构
+        - len 已使用字节长度
+        - free 未使用的字节数量
+        - buf[] 保存字节数组
+    - 特点
+        - O(1) 获取字符串长度
+        - 修改字符串 N次 最多需要 N次 内存重新分配 , 使用 空间预分配和惰性空间释放
+        - 二进制安全 (\0 结尾的问题) 
+- 链表
+    - 双向链表, 保存头尾, 无环, 链表计数器, 多态(value储存多种结构)
+    - 结构
+        - list
+            - listNode *head
+            - listNode *tail
+            - len
+        - listNode
+            - prev
+            - next
+            - value 可以储存多种结构
+- 跳跃表
+    - 可以理解为多层的链表
+        - 多层的组成结构, 每层是一个有序的链表
+        - 最底层(level 1)的链表包含所有的元素
+        - 跳跃表的查找次数近似于层数, 时间复杂度 O(logN), 插入删除也为 O(logN)
+        - 跳跃表是一种随机化的数据结构(通过抛硬币来决定层数)
+    - 结构
+        - zskiplist
+            - zskiplistNode *head, *tail
+                - sds ele 成员对象, 唯一
+                - score 分值
+                - skiplistNode *backward 后退指针
+                - zskiplistLevel level[]
+                    - zskiplistNode *forward 前进指针
+                    - span 跨度: 用来计算元素排名(rank)的
+            - length
+            - level
+- 整数
+    - 是 set 的底层实现之一, 如果一个 set 只包含整数元素, 且元素不多时, 会使用整数集合作为底层实现
+    - 可以保存 int16_t, int32_t, int64_t
+    - 结构
+        - intset
+            - encoding: contents 数组的真正来兴
+                - INTSET_ENC_INT16
+                - INTSET_ENC_INT32
+                - INTSET_ENC_INT64
+            - length: 整数集合的元素数量, 即 contents[] 数组长度
+            - contents[]: 集合中的每个元素按照值的大小从小到大排序, 且不包含重复项
+    - 升级
+        - 当想要添加一个新元素到整数集合中时, 并且当新元素的类型比整数集合现有的所有元素的类型都要长, 整数集合需要先进行升级
+        - 过程
+            - 根据新元素类型, 扩展整数集合底层数组的空间大小, 并为新元素分配空间
+            - 把数组现有的元素都转换成新元素的类型, 并将转换后的元素放到正确的位置, 且要保持数据的有序性
+            - 添加新元素到底层数组
+        - 不支持降级
+- 压缩列表 ziplist
+    - 是为了节约内存设计的, 是由一系列特殊编码的连续内存块组成的顺序性(sequential)数据结构, 一个压缩列表可以包含多个节点, 每个节点可以保存一个字节数组或者一个整数值
+    - 压缩列表是 列表(list) 和散列(Hash)的底层实现之一, 一个列表只包含少量列表项, 并且每个列表项, 是小整数或比较短的字符串, 
+    会使用压缩列表作为底层实现(3.2版本之后用 quicklist 实现)
+    - 组成
+        - zlbytes: 记录整个压缩列表占用的内存字节数, 在压缩列表内存重新分别, 或者计算 zlend 的位置时使用
+        - zltail: 记录压缩列表表尾距离压缩列表起始地址有度搜好字节, 通过该偏移量, 可以不遍历整个压缩列表就可以获取到表尾地址
+        - zllen: 记录列表包含的节点数量, 小于 UIN16_MAX(65535)时才有效, 否得得遍历计算节点数量
+        - entryX: 压缩列表的节点
+        - zlend: 特殊值 0xFF (十进制255), 用于标记压缩列表的末端
+        - entry 节点
+            - previous_entry_length: 记录压缩列表前一个字节的长度
+            - encoding: 节点的content的内容类型
+            - content: 保存节点内容
+- 对象: 使用以上数据结构形成了对象系统, 成为 Redis 里能够操作的对象
+    - REDIS_STRING
+        - REDIS_ENCODING_INT int
+            - 使用整数值实现的字符串对象
+        - REDIS_ENCODING_EMBSTR embstr
+            - 使用 embstr 编码的简单动态字符串实现的字符串对象
+        - REDIS_ENCODING_RAW raw
+            - 使用简单动态字符串实现的字符串对象
+    - REDIS_LIST
+        - REDIS_ENCODING_ZIPLIST ziplist
+            - 使用压缩列表实现的列表对象
+        - REDIS_ENCODING_LINKDLIST linkedlist
+            - 使用双端列表实现的列表对象
+    - REDIS_HASH
+        - REDIS_ENCODING_ZIPLIST ziplist
+            - 使用压缩列表实现的哈希对象
+        - REDIS_ENCODING_HT hashtable
+            - 使用字典实现的哈希对象
+    - REDIS_SET
+        - REDIS_ENCODING_INTSET intset
+            - 使用整数集合实现的集合对象
+        - REDIS_ENCODING_HT hashtable
+            - 使用字典实现的集合对象
+    - REDIS_ZSET
+        - REDIS_ENCODING_ZIPLIST ziplist
+            - 压缩列表实现的有序集合对象
+        - REDIS_ENCODING_SKIPLIST skiplist
+            - 使用跳跃表实现的有序集合对象
+            
+
+### (4) Redis 数据类型对应命令
+
+- String: 字符串
+    - 命令
+        - set
+            - 设置 value, 配合 ex/px 参数指定有效期, nx/xx 参数针对key是否存在的情况进行区别操作
+            - O(1)
+        - get
+            - O(1)
+            - 对 key 设置 value, 并返回该 key 原来的 value
+        - getset
+            - O(1)
+        - mset
+            - 为多个 key 设置 value
+            - O(m)
+        - msetnx
+            - 同 mset, 当指定 key 中有任意一个已存在, 则不进行任何操作
+            - O(m)
+        - mget
+            - O(m)
+        - incr, decr 
+            - O(1)
+        - incrby, decrby
+            - O(1)
+- Hash: 哈希列表
+    - 命令
+        - hset
+            - 将 key 对应的 Hash 中的 field 设置为 value
+            - O(1)
+        - hget
+            - O(1)
+        - hmset, hmget
+            - 设置/获取多个 field
+            - O(m) m 为操作的 field 个数
+        - hsetnx
+            - 当 field 已经存在时不会进行操作
+            - O(1)
+        - hdel
+            - 删除 field
+            - O(1)
+        - hincrby
+            - O(1)
+        - hgetall
+            - 获取所有 field, 返回数组
+            - O(n)
+        - hkeys/hvals
+            - 返回所有 field/value
+            - O(n)
+- List: 列表
+    - 命令
+        - lpush, rpush
+            - 向左侧插入一个或者多个元素, 返回长度
+            - O(m) 插入元素数量
+        - lpop, rpop
+            - 弹出一个元素并返回
+            - O(1)
+        - lpushx, rpushx
+            -  当 key 存在时才操作
+            - O(m)
+        - llen
+            - O(1)
+        - lrange
+            - 获取范围内的元素
+            - O(n)
+        - lindex
+            - 返回指定 index 的元素
+            - O(n)
+        - lset
+            - 指定 index 设置 value
+            - O(n)
+        - linsert
+            - 向指定元素前/后插入一个新元素
+            - O(n)
+- Set: 集合
+    - 命令
+        - sadd
+            - 添加若干个 member
+            - O(m)
+        - hrem
+            - 移除一个或多个 member
+            - O(m)
+        - srandmember
+            - 从 set 中随机返回1个或多个 member
+            - O(m)
+        - spop
+            - 从 set 中随机移除并返回 count 个 member
+            - O(m)
+        - scard
+            - 返回数量
+            - O(1)
+        - sismember
+            - 判断指定 value 是否存在于 set 中
+            - O(1)
+        - smove
+            - 将指定的 member 从一个 set 移至 另一个 set 中
+            - O(1)
+        - smembers
+            - 返回所有 member
+            - O(n)
+        - sunion/sunionstore
+            - 计算多个 set 的并集并返回/储存到另一个set中
+            - O(n)
+        - sinter/sinterstore
+            - 计算多个 set 交集并返回/储存到另一个set中
+            - O(n)
+        - sdiff/sdiffstore
+            - 计算 1 个 set 与 1或多个 set 的差集并返回/储存至另一个 set 中
+            - O(n)
+- Sort Set: 有序集合
+    - 命令
+        - zadd
+            - O(m)
+        - zrem
+            - O(m)
+        - zcount
+            - 返回 zset 中指定 score 范围内的 member 数量
+            - O(logN)
+        - zcard
+            - 返回 zset 中 member 数量
+            - O(1)
+        - zscore
+            - 返回 zset 中指定 member 的 score
+            - O(1)
+        - zrank/zrevrank
+            - 返回指定 member 在 zset 中的排名, 升序/降序
+            - O(log(N))
+        - zincrby
+            - 对 zset 中指定 member 的 score 进行自增
+            - O(logN)
+        - zrange/zrevrange
+            - 返回指定排名范围的所有 member , 升序/降序
+            - O(log(N) + M), M 是返回的 member 数.
+        - zrangebyscore/zrevrangebyscore
+            - 返回指定 score 范围内所有的 member , 升序/降序
+            - O(log(N) + M), M 为返回的 member 数量
+        - zremrangebyrank/zremrangebyscore
+            - 移除指定排名范围/指定 score 范围内的所有 member
+            - O(log(N) + M)
+- Bitmaps: 位图, 在 string 的基础上进行位运算操作,可以实现节省空间的数据结构
+- Hyperloglog: 用于估计一个 set 中元素数量的概率的数据结构
+- Geo: geospatial, 地理空间索引半径查询
+- BloomFilter: 布隆过滤器
+
+- 通用命令
+    - Redis 数据库整个就是 dict 实现的, 所以对于单个 key 的操作, 一般都是 O(1) 复杂度
+    - keys
+        - 列出所有的 key
+        - O(n)
+    - exists
+        - 判断一个或者多个 key 是否存在
+        - O(n)
+    - del
+        - 删除一个或多个 key
+        - O(1)
+    - expire, pexpire
+        - expire 设置 key 在多少秒后过期, pexpire 设置在多少毫秒后过期
+        - O(1)
+    - ttl, pttl
+        - 获取 key 的过期时间
+        - O(1)
+    - expireat, pexpireat
+        - 设置 key 的到期时间戳
+        - O(1) 
+    - persist
+        - 将 key 设置为永久有效
+        - O(1)
+    - rename/renamenx
+        - O(1)
+    - type
+        - O(1)
+    - config get
+        - O(1)
+    - config set
+        - O(1)
+    - config rewrite
+        - 重新加载 redis.conf 中的配置
 
 ### Redis 如何实现高可用?
 
@@ -417,15 +716,86 @@ zset 天然有序, 使用 score 来储存时间戳, 设置定时器定时查询 
 epoll 中的 读/写/关闭/连接 都转化为了事件, 然后利用 epoll 多路复用的特性, 绝不在 IO 上浪费一点时间.
 
 ### redis能否当消息队列? 用过哪些中间件消息队列? 有什么不同?
+
+Redis 消息推送 （基于 pub/sub）并不可靠, 断电就丢失
+
+Redis list 有持久化, 但是功能太少, 也不完全可靠, 没有消息确认机制
+
+RabbitMQ 有持久化, 有确认机制, 可以保证消息的生产和消费, 支持事务, 支持交换机, 路由键, 等功能, 有管理界面, 支持主从
+
 ### redis 订阅发布功能
+
+Redis 通过 publish, subscribe 等命令实现订阅与发布模式, 分为两种通信机制
+
+- 频道
+    - 频道的订阅与消息发送
+        - `subscribe` 订阅任意数量的频道, 每当频道收到信息, 就会发布给所有订阅了频道的客户端
+    - 发送信息到频道
+        - `publish`
+    - 退订频道
+        - `unsubscrbe`
+    - 原理
+        - redisServer
+            - dict *pubsub_channels 字典中的节点表示通道, 通道连接着订阅了这个频道的所有客户端 
+- 模式
+    - 模式的订阅与信息发送
+        - 订阅模式, 按照匹配来接收消息
+    - 订阅模式
+        - `psubscribe`
+    - 发送信息到模式
+        - `publish`
+    - 退订模式
+        - `punsubscribe`
+    - 原理
+        - redisServer
+            - list *pubsub_patterns
+                - 链表节点
+                    - redisClient *client 保存订阅的客户端
+                    - robj *pattern 被订阅的模式
+
 ### 2核CPU4G内存使用Redis最大QPS是多少?
-### zset 底层实现? 跳表如何实现? 做了哪些优化? 为什么不用其它平衡二叉树
-### zset 插入元素的时间复杂度
+
+可以利用 Redis 单线程的特性, 启动两个 Redis 实例, 一般一个 Redis 实例的 QPS 在几万左右, 双实例大概可以翻倍.
+
 ### Redis连接时的connect与pconnect的区别
-### Redis有哪些结构时间复杂度较高
-### Redis hash 实现
+
+connect 在脚本结束后就会释放连接
+
+pconnect 在脚本结束后会被脚本的管理程序(php-fpm)储存起来, 再连接时会直接用, 可以减少连接次数
+
 ### Redis key和value的大小限制
+
+均为 512M
+
 ### setnx 分布式锁实现
+
+> 什么是分布式锁
+
+    分布式锁是控制分布式系统或不同系统之间共同访问共享资源的一种锁表现
+
+#### 分布式锁条件
+
+- 互斥性: 在任意一个时刻, 只有一个客户端持有锁
+- 无死锁: 即便持有锁的客户端崩溃或者其它意外事件, 锁仍然可以被获取
+- 容错: 只要大部分 Redis 节点都活着, 客户端就可以获取和释放锁
+
+#### 分布式锁的主要实现
+
+- 数据库
+- Memcached (add命令)
+- Redis (setnx命令)
+- Zookeeper (临时节点)
+
+#### 单机 Redis 分布式锁
+
+- 加锁: `set key value [EX seconds] [px milliseconds] [NX|XX]`, value 需要保证唯一
+- 释放锁: 解锁时, 需要判断锁是否是自己的, 基于value值来判断. 通常使用 lua 脚本来判断
+    - `if redis.call('get',KEYS[1]) == ARGV[1] then return redis.call('del',KEYS[1]) else return 0 end`
+- 解决的问题
+    - 锁超时问题, 超时后锁会自己释放
+    - 释放了别人的锁的问题: 客户端A获取到锁后执行, 阻塞超时到锁解锁了, 后面B客户端拿到了锁, A阻塞执行完了, 执行释放锁就把B客户端的锁释放了,
+    所以释放时需要判断 value 是否是自己设置的.
+
 ### Redis 各种类型的使用场景
 ### 缓存的热点 Key 怎么处理?
 ### Redis 缓存穿透, 怎么避免?
