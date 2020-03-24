@@ -11,7 +11,8 @@
     "expandable-chapters",
     "splitter",
     "3-ba",
-    "anchor-navigation-ex"
+    "anchor-navigation-ex",
+    "pageview-count"
   ],
   "pluginsConfig": {
     "sitemap": {
@@ -59,7 +60,11 @@
       "token": "c0ea51a59e43824b86dd1cdb4d773734"
     },
     "anchor-navigation-ex": {
-      "showLevel": false
+      "isRewritePageTitle": true,
+      "isShowTocTitleIcon": true,
+      "tocLevel1Icon": "fa fa-hand-o-right",
+      "tocLevel2Icon": "fa fa-hand-o-right",
+      "tocLevel3Icon": "fa fa-hand-o-right"
     }
   }
 }
