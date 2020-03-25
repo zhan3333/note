@@ -31,9 +31,40 @@ class Solution
      * @param $needle
      * @return int
      */
-    function strStr($haystack, $needle)
+    function strStr($tString, $pString)
     {
+        $lenT = strlen($tString);
+        $lenP = strlen($pString);
+        $i = 0;  // S 的下标
+        $j = 0;  // P 的下标
+        $next = $this->makeNext($pString);
+        while ($i < $lenT && $j < $lenP) {
+            if ($j === -1 || $tString[$i] === $pString[$j]) {
+                $i++;
+                $j++;
+            } else {
+                $j = $next[$j];
+            }
+        }
+        return $j === $lenP ? $i - $lenP : -1;
 
+    }
+
+    function makeNext($str)
+    {
+        $next[0] = -1;
+        $i = 0;
+        $j = -1;
+        while ($i < strlen($str)) {
+            if ($j === -1 || $str[$i] === $str[$j]) {
+                $j++;
+                $i++;
+                $next[$i] = $j;
+            } else {
+                $j = $next[$j];
+            }
+        }
+        return $next;
     }
 
     /**
@@ -56,7 +87,8 @@ class Solution
 }
 
 $s = new Solution();
-var_dump($s->strStr('hello', 'll')); // 2
-var_dump($s->strStr('aaaaa', 'bba')); // -1
-var_dump($s->strStr('aaaaa', '')); // 0
+//var_dump($s->strStr('aabcabcc', 'abcabc')); // 2
+//var_dump($s->strStr('hello', 'll')); // 2
+//var_dump($s->strStr('aaaaa', 'bba')); // -1
+//var_dump($s->strStr('aaaaa', '')); // 0
 var_dump($s->strStr("mississippi", 'issipi')); // -1
