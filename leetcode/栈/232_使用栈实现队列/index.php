@@ -25,20 +25,6 @@
 //链接：https://leetcode-cn.com/problems/implement-queue-using-stacks
 //著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 
-// 思路:
-// push时将数据放在栈底
-// pop取栈顶
-// peek时取栈顶
-
-// or
-// push放栈顶
-// pop取栈底
-// peek取栈底
-
-// 注意
-// 每次操作时, 可以将stack1作为输入栈, stack2作为输出栈, 这样可以避免栈互相转换的消耗, 需要时才进行操作
-// push 不影响 peek, 所以 push时可以直接push到stack1上
-
 // 最终方法:
 // a, b stack分开用, 当 pop或者peek 时, 若b为空, 则将a全部压入到b中使用
 // 在这个方法中, a栈作为一个缓冲作用, 只用来push存值, 当 b中的数据使用完后, 一次性将a压入b中继续使用
