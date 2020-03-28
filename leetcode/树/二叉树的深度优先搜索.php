@@ -24,7 +24,24 @@ class Solution
      */
     function inOrderTraversal($tree)
     {
-
+        if ($tree === null) {
+            return [];
+        }
+        $ans = [];
+        $stack = [[$tree, [$tree->val]]];
+        while (!empty($stack)) {
+            [$node, $path] = array_pop($stack);
+            if ($node->left === null && $node->right === null) {
+                $ans[] = $path;
+            }
+            if ($node->right !== null) {
+                $stack[] = [$node->right, array_merge($path, [$node->right->val])];
+            }
+            if ($node->left !== null) {
+                $stack[] = [$node->left, array_merge($path, [$node->left->val])];
+            }
+        }
+        return $ans;
     }
 }
 
@@ -37,4 +54,4 @@ $tree->left->right = new TreeNode(2);
 
 var_dump($s->inOrderTraversal($tree)); // 1, 2, 3, 4
 
-var_dump($s->inOrderTraversalRecursion($tree)); // 1, 2, 3, 4
+//var_dump($s->inOrderTraversalRecursion($tree)); // 1, 2, 3, 4
