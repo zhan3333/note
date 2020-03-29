@@ -102,6 +102,35 @@ class Solution
         }
         return true;
     }
+
+    /**
+     * 广度优先遍历, 能更早的发现不对称
+     * @param $root
+     * @return bool
+     */
+    function isSymmetric2($root)
+    {
+        $queue = [$root];
+        while (!empty($queue)) {
+            $n = count($queue);
+            $arr = [];
+            for ($i = 0; $i < $n; $i++) {
+                $node = array_shift($queue);
+                $arr[] = $node->val ?? PHP_INT_MIN;
+                if ($node !== null) {
+                    $queue[] = $node->left;
+                    $queue[] = $node->right;
+                }
+            }
+            $mid = (int)($n / 2);
+            for ($i = 0; $i <= $mid; $i++) {
+                if ($arr[$i] !== $arr[$n - $i - 1]) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }
 
 $s = new Solution();
