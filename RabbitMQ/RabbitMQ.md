@@ -137,7 +137,23 @@ Kafka 主要用于处理活跃的流式数据, 大数据量的数据处理上
     - Kafka: 支持
 
 ### 如果不用消息队列, 项目中会怎么实现对应功能?
+
+开协程执行任务, 耦合度高
+
 ### RabbitMQ 内部使用原理? 工作流程?
+
+- 发布流程
+    1. Publisher 和 Broker 建立 TCP 连接
+    2. Publisher 和 Broker 建立信道
+    3. Publisher 通过 channel 将 message 发送给 Broker, 由 Exchange 将 message 进行转发
+    4. Exchange 将 message 转发到指定的 Queue (队列)
+- 接收
+    1. Consumer 和 Broker 建立 TCP 连接
+    2. Consumer 和 Broker 建立 channel
+    3. Consumer 监听 Queue
+    4. 当有消息到达 Queue 时, Broker 默认将 message 推送给 Consumer
+    5. Consumer 接收到消息
+
 ### RabbitMQ 如何保证的数据可靠性?
 
 - 丢失消息的可能位置
@@ -192,8 +208,62 @@ Kafka 主要用于处理活跃的流式数据, 大数据量的数据处理上
 5. client 投递消息到 exchange
 6. exchange 接收到消息后, 就根据消息 key 和已经设置的 binding, 进行消息路由, 将消息投递到一个或多个队列里.
 
-### 什么是 AMQP 协议
+### 什么是 AMQP 协议 (Advanced Message QueuingProtocol)
+
+开放式标准应用层协议。
 
 可以简单的理解为一套消息传递的标准协议, 例如 HTTP 协议, HTTPS 协议都有自身的规则.
 
 整体上就是一个 生产->消费流程: 连接创建与销毁, 生产消息, 消费消息
+
+- 定义了这些特性
+    - 消息方向
+    - 消息队列
+    - 消息路由 (包括: 点到点, 发布-订阅模式)
+    - 可靠性
+    - 安全性
+- AMQP 协议栈
+    - 包含三层
+    - Model Layer: Exchanges, Queues, Transactions, Access Control Data Type
+        - 协议最高层, 定义了一些供客户端调用的命令
+    - Session Layer: Commands delivery, Exceptions handler, Sychronization
+        - 主要负责将客户端命令发送给服务器, 在将服务器端的应答返回给客户端, 主要为客户端与服务端之间通信提供可靠性, 同步机制和错误处理.
+    - Transport Layer: Data encoding, Framing, Failure detection, Multiplecing
+        - 主要传输二进制数据流, 提供帧的处理,信道复用,错误检测和数据表示.
+    
+    
+    
+### 为什么选择 RabbitMQ
+
+1. 除了 Qpid, RabbitMQ 是唯一一个实现了 AMQP 标砖的消息服务器
+2. 可靠性, RabbitMQ 的持久化支持, 保证了消息的稳定性
+3. 高并发, RabbitMQ 使用了 Erlang 开发语言, Erlang 是为电话交换机开发的语言, 天生自带高并发光环, 和高可用特性
+4. 集群部署简单
+5. 社区活跃度高
+
+### 消息发送原理
+
+首先应用程序和 Rabbit Server 之间会创建一个 TCP 连接, 一旦 TCP 打开, 并通过了认证, 认证就是你试图连接 Rabbit 之前发送的 Rabbit 服务器连接信息和用户名密码, 有点像程序连接数据. 一旦通过认证, 应用程序和 Rabbit Server 之间就创建了一条 AMQP 信道(channel).
+
+信道是创建在真实 TCP 上的虚拟连接, AMQP 命令都是通过信道发送出去的, 每个信道都会有一个唯一的 ID, 不论是发布消息, 订阅队列或者介绍消息都是通过信道完成的.
+
+> 为什么不直接通过 TCP 发送消息
+
+对于操作系统来说创建和销毁 TCP 会话是非常昂贵的开销. 引入信道的概念, 我们可以在一条 TCP 连接上创建 N 多信道, 这样既能发送命令, 也能够保证每条信道的私密性, 我们可以想象成光纤电缆.
+
+### 持久化原理
+
+- 持久化选项 (三者同时满足才会将消息持久化)
+    - (消息持久化) 投递消息的时候 durable 设置为 true, 消息持久化
+    - (交换机持久化) 消息已经到达持久化交换机上
+    - (队列持久化) 消息已经到达持久化的队列上
+- 原理
+    - Rabbit 会将持久化消息写入磁盘上的持久化日志文件, 等消息被消费后, Rabbit 会把这条消息标识为等待垃圾回收.
+- 优缺点: 性能和稳定性的选择
+
+### 确保消息不丢失
+
+- 事务
+    - 同步阻塞
+- Confirm 机制
+    - 异步消息通知
