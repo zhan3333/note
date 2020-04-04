@@ -28,6 +28,8 @@ class Solution
 {
 
     /**
+     *
+     * 前i天的最大收益 = max(前 i-1 天的最大收益, 第 i 天的价格 - 前 i-1 天中的最小价格)
      * @param Integer[] $prices
      * @return Integer
      */
@@ -37,11 +39,15 @@ class Solution
         if ($len < 2) {
             return 0;
         }
+        $min = $prices[0];
+        $max = 0;
         for ($i = 1; $i < $len; $i++) {
-
+            $max = max($max, $prices[$i] - $min);
+            $min = min($min, $prices[$i]);
         }
+        return $max;
     }
 }
 
 $s = new Solution();
-var_dump($s->maxProfit([7, 1, 5, 3, 6, 4]));
+var_dump($s->maxProfit([7, 1, 5, 3, 6, 4])); // 5
