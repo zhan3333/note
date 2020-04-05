@@ -29,10 +29,23 @@ class Solution
 
     /**
      * 牛顿迭代求解
+     * 时间复杂度 O(logN),
+     * 空间复杂度 O(1)
      * @param $x
+     * @return int
      */
-    function mySqrt($x) {
-
+    function mySqrt1($x)
+    {
+        if ($x < 2) {
+            return $x;
+        }
+        $x0 = $x;
+        $x1 = ($x0 + $x / $x0) / 2;
+        while (abs($x0 - $x1) >= 1) {
+            $x0 = $x1;
+            $x1 = ($x0 + $x / $x0) / 2;
+        }
+        return (int)$x1;
     }
 
     /**
@@ -42,27 +55,25 @@ class Solution
      * @param Integer $x
      * @return Integer
      */
-    function mySqrt1($x)
+    function mySqrt($x)
     {
-        if ($x === 0) return 0;
-
-        // 直接以一半的值为截止点, 0为开始点
-        $start = 1;
-        $end = (int)($x / 2) + 1;
-        while ($end > $start + 1) {
-            $mid = (int)(($end - $start) / 2) + $start;
-            $midSquare = $mid * $mid;
-            if ($midSquare === $x) {
-                return $mid;
-            }
-            if ($midSquare > $x) {
-                $end = $mid;
-            }
-            if ($midSquare < $x) {
-                $start = $mid;
+        if ($x < 2) {
+            return $x;
+        }
+        $left = 1;
+        $right = $x - 1;
+        while ($left < $right - 1) {
+            $center = (int)(($right - $left) / 2) + $left;
+            $square = $center ** 2;
+            if ($square === $x) {
+                return $center;
+            } elseif ($square > $x) {
+                $right = $center;
+            } else {
+                $left = $center;
             }
         }
-        return $start;
+        return $left;
     }
 }
 

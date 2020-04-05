@@ -21,11 +21,22 @@
 //链接：https://leetcode-cn.com/problems/reverse-bits
 //著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 
-class Solution {
+class Solution
+{
     /**
-     * todo 无法使用32位无符号数
+     * @param $n
      */
-    function reverseBits() {
-
+    function reverseBits($n)
+    {
+        $ans = 0;
+        for ($i = 0; $i < 32; $i++) {
+            $ans = ($ans << 1) + ($n & 1);
+            $n >>= 1;
+        }
+        return $ans;
     }
 }
+
+$s = new Solution();
+
+var_dump($s->reverseBits(43261596)); // 964176192
