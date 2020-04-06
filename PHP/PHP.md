@@ -206,17 +206,80 @@ PHP 中数组实际上是一个有序映射, 映射是一种把 values 关联到
 变量分为两个部分: 变量名(zval), 变量值(zend_value). PHP 中使用引用计数来做 GC 的, 当一个变量值的 refcount 减少到0时会直接被回收, 减少但是没有到0就会加入垃圾缓冲区链表中, 缓冲区到达阈值后启动检查函数, 是垃圾的会在这个时候被回收掉. 
 
 ### PHP7 新特性
+
+- 引入 Throwable 接口,. Error 和 Exception 都实现了 Throwable
+- 合并空操作符
+- 飞船操作符
+- 常量数组
+- use 组合声明
+- 一次 catch 多个异常/错误
+- 类常量增加可见性修饰符
+- 可空类型 `?int`
+- void 返回类型
+
 ### 类在实例化的时候, 发生了什么
 
+从底层来看,  实例化一个对象分为三步
 
+1. 根据类名去全局类列表内查找该类是否存在, 如果存在, 则获取存储类的变量
+2. 判断类是否为普通类(非抽象类或接口); 如果是普通类则给需要床架你的对象存放的 zval 容器分配内存, 并设置容器类型为 IS_OBJECT
+3. 执行对象初始化操作, 将对象添加到对象列表(对象池)中
+
+### 获取和设置类成员变量的底层
+
+- 获取
+    1. 获取对象的属性, 从对象的 properties 查找是否存在与名称对应的属性, 如果存在返回结果, 如果不存在, 到第二步
+    2. 如果存在 `__get()` 魔术方法, 则从此方法获取变量, 如果不存在, 则报错
+- 设置
+    1. 获取对象的属性, 从对象的 properties 查找是否存在于名称对应的属性, 如果存在且已有的值和需要设置的值相同, 则不进行任何操作, 否则执行变量赋值操作, 如果不存在, 转第二步
+    2. 如果存在 `__set()` 魔术方法, 则调用此方法设置变量,  如果不存在, 转第三步
+    3. 如果成员变量一直没有被设置过, 则直接将此变量添加到对象的 properties 字段所在的 HashTable 中
 
 ### &&和&的差别
+
+&& 是逻辑与运算
+& 是位与运算
+
 ### 无限递归会造成哪个区域的错误?
+
+发生内存溢出错误: `Fatal error: Allowed memory size of 536870912 bytes exhausted (tried to allocate 262144 bytes) in`
+
+函数栈溢出
+
 ### 子类构造的时候，整个构造的过程
 ### 为什么选择PHP
 ### go 协程和 swoole 协程什么区别
+
+协程是轻量级的线程, 开销很小
+
+- Swoole 协程客户端需要在协程的上下文环境中使用.
+- Swoole v4.3.2 版本之后, 已经支持协程 CPU 密集场景调度了
+- Go 语言层面就完全支持协程了
+- Go 协程是多线程的, Swoole 协程是单线程的. 故操作全局资源时, Swoole 不需要加锁, Go 需要
+- Go 允许同一时间多个协程去读同一个 `socket`, 这种情况可能会发生数据包错乱的问题. 而 Swoole 在多协程读同一个 `socket` 时会直接抛出致命错误: `"%s has already been bound to another coroutine#%ld, reading or writing of the same socket in multiple coroutines at the same time is not allowed."`
+
 ### cli 模式下的几个生命周期
+
+- SAPI
+    - 模块初始化阶段 (module init)
+        - 主要进行 PHP 框架, zend 引擎的初始化操作
+    - 请求初始化阶段 (request init)
+        - fpm 来说, 是在 worker 进程 accept 一个请求并读取, 解析完请求数据后的一个阶段
+    - PHP 脚本执行阶段
+        - Zend 引擎接管控制权, 将 PHP 脚本代码编译成 opcodes 并顺序执行
+    - 请求结束阶段 (request shutdown)
+    - 模块关闭阶段 (module shutdown)
+
 ### php-fpm 运行机制？（master 管理，worker 循环 accept）
+
+阻塞的单线程模型, 单 master, 多 worker 结构, 同一个 worker 进程同时只能处理一个请求.
+
+PHP-FPM 是 fast-cgi 的实现, 提供了进程管理的功能, 包含 master, worker 两种进程:
+
+- master 创建并监听 socket, fork 多个 worker 进程, 通过共享内存获取 worker 的状态, 进而通过信号控制 worker 进程
+- worker 自由 accept cgi 请求
+- master 通过共享内存获取 worker 进程的信息, 比如 worker 进程的当前状态, 已处理请求数等, 当 master 要杀掉一个 worker 时通过发送信号的方式通知 worker 进程.
+
 ### php-fpm 模式下，kill -9 master-pid，会怎么样？kill matser-pid 呢？（信号机制）
 ### 内存分配流程？为什么要这么设计？
 ### GC 的出现是为了解决什么问题？什么时候会触发 GC？说下大概流程
