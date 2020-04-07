@@ -51,6 +51,8 @@ class Solution
 {
 
     /**
+     * 实质上是一个拆分问题
+     *
      * @param Integer $num
      * @return String
      */

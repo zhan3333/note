@@ -281,9 +281,38 @@ PHP-FPM 是 fast-cgi 的实现, 提供了进程管理的功能, 包含 master, w
 - master 通过共享内存获取 worker 进程的信息, 比如 worker 进程的当前状态, 已处理请求数等, 当 master 要杀掉一个 worker 时通过发送信号的方式通知 worker 进程.
 
 ### php-fpm 模式下，kill -9 master-pid，会怎么样？kill matser-pid 呢？（信号机制）
+
+kill 命令默认使用 15 (SIGTERM), kill master-pid 会立即让 master 关闭, 会影响到当前请求
+
+kill -9 master-pid (SIGKILL), 有OS来执行杀死进程的操作, 优先级最高, 会影响到当前请求
+
+- SIGUSR1: 重新打开日志, master 重新打开 error_log, worker 重启后重新打开 access_log
+- SIGUSR2: 重启 fpm, 包括 master 和 worker
+    - master 通过给子进程发送 SIGQUIT 信号方式, 平滑关闭所有子进程
+    - 如果过了一段时间有些子进程还没有退出, 就给子进程发送 SIGTERM 信号, 强制关闭子进程
+    - 如果还没有关闭, 给子进程发送 SIGKILL 信号, 强制关闭
+    - 等所有的子进程退出后, master 重新启动
+- SIGQUIT: 关闭 fpm, 不影响正在处理的请求, 等处理完正在处理的请求后, 子进程才退出执行步骤 
+    - master 通过给子进程发送 SIGQUIT 信号方式, 平滑关闭所有子进程
+      - 如果过了一段时间有些子进程还没有退出, 就给子进程发送 SIGTERM 信号, 强制关闭子进程
+      - 如果还没有关闭, 给子进程发送 SIGKILL 信号, 强制关闭
+      - 等所有的子进程退出后, master 退出
+- SIGTERM/SIGINT 信号: 立即强制关闭 fpm, 会影响当前请求
+    - Master 通过给子进程发送 SIGTERM 信号的方式关闭子进程
+    - 一段时间后有些子进程没有关闭, master 给子进程发送 SIGKILL信号, 强制关闭
+    - 等所有子进程退出后, master 退出
+
 ### 内存分配流程？为什么要这么设计？
+
 ### GC 的出现是为了解决什么问题？什么时候会触发 GC？说下大概流程
+
+PHP 通常用在 PHP-fpm 中, 单个 worker 进程需要处理多个请求才会被关闭, 这种情形下如果没有垃圾回收机制可能会在一次次请求中内存逐渐被占满, 会造成内存泄漏.
+
+zval 中的 zend_refcount 计数减少时, 如果等于0直接会被回收, 大于0时会被加入到缓冲区链表中, 当缓冲区大小到达阈值时, 会执行垃圾回收程序.
+
 ### php 里的数组是怎么实现的？（这里要注意下 php5 和 php7 实现的区别，优化了非常多）
+
+
 ### nginx 和 php-fpm 的通信机制？fast-cgi 和 cgi 区别？
 ### php-fpm 创建 worker 进程的规则是什么？不同场景下怎么选择？
 ### php 和 mysql 的通信机制？长链接和短链接啥区别？怎么实现的？连接池要怎么实现？
