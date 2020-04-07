@@ -40,25 +40,24 @@ class Solution
         $len = strlen($secret);
         $map = [];
         for ($i = 0; $i < $len; $i++) {
-            if (isset($map[$secret[$i]])) {
-                $map[$secret[$i]]++;
-            } else {
-                $map[$secret[$i]] = 1;
+            if (!isset($map[$secret[$i]])) {
+                $map[$secret[$i]] = 0;
             }
+            $map[$secret[$i]]++;
             if ($secret[$i] === $guess[$i]) {
                 $a++;
                 $map[$secret[$i]]--;
             }
         }
         for ($i = 0; $i < $len; $i++) {
-            if ($secret[$i] !== $guess[$i] &&
-                isset($map[$guess[$i]]) &&
-                $map[$guess[$i]] > 0) {
-                $b++;
+            if ($secret[$i] !== $guess[$i]
+                && isset($map[$guess[$i]])
+                && $map[$guess[$i] > 0]) {
                 $map[$guess[$i]]--;
+                $b++;
             }
         }
-        return $a . 'A' . $b . 'B';
+        return "{$a}A{$b}B";
     }
 }
 
