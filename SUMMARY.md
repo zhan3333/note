@@ -111,6 +111,3 @@
     - [Jenkins 安装](Tool/Jenkins/Jenkins 安装.md)
 - 网络
     [网络](网络/网络.md)
-- 设计
-    [设计](设计/设计.md)
-    
