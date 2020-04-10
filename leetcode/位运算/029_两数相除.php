@@ -44,8 +44,10 @@ class Solution
         if ($dividend === 0) {
             return 0;
         }
-        if ($dividend === PHP_INT_MIN && $divisor === -1) {
-            return PHP_INT_MAX;
+        $min = -(1 << 31);
+        $max = (1 << 31) - 1;
+        if ($dividend === $min && $divisor === -1) {
+            return $max;
         }
         // 判断两个数符号是否相异
         $negative = ($dividend ^ $divisor) < 0;
@@ -66,3 +68,4 @@ $s = new Solution();
 
 var_dump($s->divide(10, 3)); // 3
 var_dump($s->divide(7, -3)); // -2
+var_dump($s->divide(-2147483648, -1)); // 2147483647
