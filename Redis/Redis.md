@@ -48,6 +48,8 @@
 
 应用: 一般用于统计注册IP数, 每日页面访问数等
 
+包含操作: PFADD, PFCOUNT, PFMERGE
+
 ### Redis 数据淘汰策略
 
 系统默认 `no-eviction`
@@ -834,6 +836,8 @@ pconnect 在脚本结束后会被脚本的管理程序(php-fpm)储存起来, 再
     - 排行榜
     - 带权重消息队列
     - 延时队列
+- HyperLogLog
+    - UV 统计
 
 ### 缓存的热点 Key 怎么处理?
 
