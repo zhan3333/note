@@ -34,7 +34,7 @@ class Solution
         $max = $nums[0];
         for ($i = 1; $i < $len; $i++) {
             $nums[$i] = max($nums[$i], $nums[$i] + $nums[$i - 1]);
-            $max = max($nums[$i], $max);
+            $max = max($max, $nums[$i]);
         }
         return $max;
     }

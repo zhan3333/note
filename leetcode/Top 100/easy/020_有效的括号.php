@@ -59,31 +59,26 @@ class Solution
      */
     function isValid1(string $s): bool
     {
+        $stack = [];
         $map = [
             '(' => ')',
             '[' => ']',
             '{' => '}',
         ];
-        $stack = [];
         $len = strlen($s);
-        // 奇数位直接返回
-        if ($len & 1 !== 0) {
-            return false;
-        }
         for ($i = 0; $i < $len; $i++) {
-            // 超过了长度的一半, 肯定无效, 直接返回
-            if (count($stack) > ($len >> 1)) {
-                return false;
-            }
             $char = $s[$i];
-            if ($char === '(' || $char === '[' || $char === '{') {
+            if (empty($stack)) {
                 $stack[] = $char;
             } else {
-                if ($char !== $map[$stack[count($stack) - 1]]) {
-                    return false;
+                if ($char === '(' || $char === '[' || $char === '{') {
+                    $stack[] = $char;
+                } else {
+                    $pop = array_pop($stack);
+                    if ($map[$pop] !== $char) {
+                        return false;
+                    }
                 }
-
-                array_pop($stack);
             }
         }
         return empty($stack);

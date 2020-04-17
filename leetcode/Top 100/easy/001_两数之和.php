@@ -17,6 +17,12 @@
 
 class Solution
 {
+
+    /**
+     * @param Integer[] $nums
+     * @param Integer $target
+     * @return Integer[]
+     */
     function twoSum($nums, $target)
     {
         $hash = [];
@@ -28,6 +34,6 @@ class Solution
             }
             $hash[$nums[$i]] = $i;
         }
-        return [-1, -1];
+        return [];
     }
 }

@@ -40,11 +40,8 @@ class Solution
      */
     function climbStairs($n)
     {
-        $dp = [
-            0 => 0,
-            1 => 1,
-            2 => 2,
-        ];
+        $dp[1] = 1;
+        $dp[2] = 2;
         $i = 3;
         while ($i <= $n) {
             $dp[$i] = $dp[$i - 1] + $dp[$i - 2];
