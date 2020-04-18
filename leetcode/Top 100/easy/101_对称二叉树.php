@@ -78,25 +78,20 @@ class Solution
     {
         $queue = [$root];
         while (!empty($queue)) {
-            $newQueue = [];
+            $count = count($queue);
             $arr = [];
-            while (!empty($queue)) {
+            for ($i = 0; $i < $count; $i++) {
                 $node = array_shift($queue);
                 if ($node !== null) {
-                    $newQueue[] = $node->left;
-                    $newQueue[] = $node->right;
+                    $queue[] = $node->left;
+                    $queue[] = $node->right;
                     $arr[] = $node->val;
                 } else {
                     $arr[] = null;
                 }
             }
-            $queue = $newQueue;
-            $len = count($arr);
-            $mid = $len >> 1;
-            for ($i = 0; $i < $mid; $i++) {
-                if ($arr[$i] !== $arr[$len - $i - 1]) {
-                    return false;
-                }
+            if (array_reverse($arr) !== $arr) {
+                return false;
             }
         }
         return true;

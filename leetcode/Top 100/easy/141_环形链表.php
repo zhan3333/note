@@ -54,15 +54,15 @@ class Solution
      */
     function hasCycle($head)
     {
-        $fast = $head;
-        $slow = $head;
-        while ($fast !== null && $fast->next !== null) {
-            $fast = $fast->next->next;
-            if ($slow && $fast && $slow->val === $fast->val) {
-                return true;
-            }
-            $slow = $slow->next;
-            if ($slow && $fast && $slow->val === $fast->val) {
+        if ($head === null) {
+            return false;
+        }
+        $f = $head;
+        $s = $head;
+        while ($f->next !== null && $f->next->next !== null) {
+            $f = $f->next->next;
+            $s = $s->next;
+            if ($s === $f) {
                 return true;
             }
         }

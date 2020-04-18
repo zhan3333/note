@@ -29,11 +29,11 @@ class Solution
      */
     function singleNumber($nums)
     {
+        $sum = 0;
         $len = count($nums);
-        $res = $nums[0];
-        for ($i = 1; $i < $len; $i++) {
-            $res ^= $nums[$i];
+        for ($i = 0; $i < $len; $i++) {
+            $sum ^= $nums[$i];
         }
-        return $res;
+        return $sum;
     }
 }

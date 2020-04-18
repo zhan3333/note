@@ -35,12 +35,12 @@ class Solution
      */
     function maxProfit($prices)
     {
+        $dp = [0];
+        $min = $prices[0];
         $len = count($prices);
         if ($len < 2) {
             return 0;
         }
-        $dp[0] = 0;
-        $min = $prices[0];
         for ($i = 1; $i < $len; $i++) {
             $dp[$i] = max($dp[$i - 1], $prices[$i] - $min);
             $min = min($prices[$i], $min);

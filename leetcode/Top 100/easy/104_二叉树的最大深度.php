@@ -68,22 +68,19 @@ class Solution
      */
     function maxDepth1($root)
     {
-        if (null === $root) {
-            return 0;
+        $max = 0;
+        if ($root === null) {
+            return $max;
         }
         $stack = [[$root, 1]];
-        $max = 1;
         while (!empty($stack)) {
             [$node, $depth] = array_pop($stack);
-            if ($node->left || $node->right) {
-                $depth++;
-                $max = max($depth, $max);
-                if ($node->left !== null) {
-                    $stack[] = [$node->left, $depth];
-                }
-                if ($node->right !== null) {
-                    $stack[] = [$node->right, $depth];
-                }
+            $max = max($depth, $max);
+            if ($node->left !== null) {
+                $stack[] = [$node->left, $depth + 1];
+            }
+            if ($node->right !== null) {
+                $stack[] = [$node->right, $depth + 1];
             }
         }
         return $max;
