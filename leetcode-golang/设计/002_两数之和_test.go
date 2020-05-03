@@ -1,6 +1,9 @@
 package 设计
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 func TestAdd(t *testing.T) {
 	l1 := &ListNode{
@@ -24,5 +27,5 @@ func TestAdd(t *testing.T) {
 		},
 	}
 	l3 := addTwoNumbers(l1, l2)
-
+	fmt.Printf("%v", l3)
 }
