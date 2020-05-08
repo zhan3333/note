@@ -1,4 +1,4 @@
-package 设计
+package design
 
 import (
 	"fmt"
