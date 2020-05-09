@@ -48,10 +48,6 @@
     - [npm 安装更新](编程/前端/npm安装更新.md)
     - [npm 换源](编程/前端/npm换源.md)
     - [Ubuntu 安装 node 环境](编程/前端/Ubuntu安装node环境.md)
-  - GoLang
-    - [常见错误](编程/Golang/常见错误)
-    - [go mod 设置代理](编程/Golang/go mod 设置代理.md)
-    - [golang Http 请求](编程/Golang/golang Http 请求.md)
   - Java
     - [如何开发一个 Java SDK](编程/Java/如何开发一个 Java SDK.md)
     - [学 Java](编程/Java/学Java.md)
@@ -111,3 +107,7 @@
     - [Jenkins 安装](Tool/Jenkins/Jenkins 安装.md)
 - 网络
     [网络](网络/网络.md)
+- GoLang
+    - [常见错误](Golang/常见错误)
+    - [go mod 设置代理](Golang/go mod 设置代理.md)
+    - [golang Http 请求](Golang/golang Http 请求.md)
