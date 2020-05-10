@@ -18,12 +18,15 @@ import "math"
 //著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 
 func maxSubArray(nums []int) int {
-	for k, v := range nums {
-		if k < 1 {
-			continue
+	res := nums[0]
+	sum := 0
+	for _, num := range nums {
+		if sum > 0 {
+			sum += num
 		} else {
-			nums[k] = int(math.Max(float64(v), float64(nums[k-1]+v)))
+			sum = num
 		}
+		res = int(math.Max(float64(res), float64(sum)))
 	}
-	return nums[len(nums)-1]
+	return res
 }
