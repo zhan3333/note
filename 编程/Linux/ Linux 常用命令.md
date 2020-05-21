@@ -13,3 +13,19 @@ lsof -i:8888
 ```shell
 kill -s 9 15555
 ```
+
+### 查看文件夹大小
+
+`du -hs *`
+
+### 查看文件大小排行
+
+```shell script
+du -hs * | sort -hr
+
+# 选出排在前面的10个
+du -s * | sort -hr | head 
+
+# 选出排在后面的10个
+du -s * | sort -hr| tail 
+```
