@@ -65,14 +65,16 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 vim ~/.tmux.conf.local
 
 ```vim
- set -g @tpm_plugins '          \
-   tmux-plugins/tpm             \
-   tmux-plugins/tmux-sensible   \
-   tmux-plugins/tmux-resurrect  \
- '
+set -g @tpm_plugins '          \
+    tmux-plugins/tpm             \
+    tmux-plugins/tmux-sensible   \
+    tmux-plugins/tmux-resurrect  \
+    tmux-plugins/tmux-continuum  \
+'
 
 set -g @resurrect-save 'S'
 set -g @resurrect-restore 'R'
+set -g @continuum-restore 'on'
 
 run '~/.tmux/plugins/tpm/tpm'
 ```
@@ -82,3 +84,9 @@ run '~/.tmux/plugins/tpm/tpm'
 `prefix + shift + i`安装插件
 `prefix + shift + s` 保存
 `prefix + shift + r` 重载
+
+## Resumerrect automatic restoring
+
+```shell script
+set -g @continuum-restore 'on'
+```
