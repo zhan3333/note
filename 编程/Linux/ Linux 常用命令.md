@@ -24,8 +24,8 @@ kill -s 9 15555
 du -hs * | sort -hr
 
 # 选出排在前面的10个
-du -s * | sort -hr | head 
+du -sh * | sort -hr | head 
 
 # 选出排在后面的10个
-du -s * | sort -hr| tail 
+du -sh * | sort -hr| tail 
 ```
