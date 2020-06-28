@@ -43,6 +43,20 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-m
 
 `extract`: x命令解压文件
 
+`git-open`
+
+```shell script
+git clone https://github.com/paulirish/git-open.git $ZSH_CUSTOM/plugins/git-open
+```
+
+`plugins=(其他的插件 git-open)`
+
+## 最终使用配置为
+
+```text
+plugins=(git zsh-syntax-highlighting zsh-autosuggestions extract z git-open)
+```
+
 ## 推荐打开功能
 
 ```shell

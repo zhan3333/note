@@ -84,9 +84,3 @@ run '~/.tmux/plugins/tpm/tpm'
 `prefix + shift + i`安装插件
 `prefix + shift + s` 保存
 `prefix + shift + r` 重载
-
-## Resumerrect automatic restoring
-
-```shell script
-set -g @continuum-restore 'on'
-```
