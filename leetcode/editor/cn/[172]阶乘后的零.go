@@ -19,12 +19,16 @@ package leetcode_golang
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func trailingZeroes(n int) int {
-	c := 0
+	count5 := 0
 	for n > 0 {
-		n /= 5
-		c += n
+		i := n
+		for i > 0 && i % 5 == 0 {
+			i /= 5
+			count5++
+		}
+		n--
 	}
-	return c
+	return count5
 }
 
 //leetcode submit region end(Prohibit modification and deletion)
