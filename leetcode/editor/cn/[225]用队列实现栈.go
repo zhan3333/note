@@ -59,17 +59,26 @@ func (this *MyStack) Push(x int) {
 
 /** Removes the element on top of the stack and returns that element. */
 func (this *MyStack) Pop() int {
-
+	for this.Queue1.Size() > 1 {
+		this.Queue2.Push(this.Queue1.Pop())
+	}
+	pop := this.Queue1.Pop()
+	t := this.Queue1
+	this.Queue1 = this.Queue2
+	this.Queue2 = t
+	return pop
 }
 
 /** Get the top element. */
 func (this *MyStack) Top() int {
-
+	top := this.Pop()
+	this.Queue1.Push(top)
+	return top
 }
 
 /** Returns whether the stack is empty. */
 func (this *MyStack) Empty() bool {
-
+	return this.Queue1.Size() == 0
 }
 
 /**
