@@ -29,7 +29,7 @@ sudo yum install libevent-devel
 Ubuntu
 
 ```shell
-sudo yum install libevent-dev
+sudo apt install libevent-dev
 ```
 
 `curses not found`
