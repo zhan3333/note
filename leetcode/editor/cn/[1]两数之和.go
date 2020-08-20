@@ -17,14 +17,14 @@ package leetcode_golang
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func twoSum(nums []int, target int) []int {
-	var m = map[int]int{}
-	for i, n := range nums {
-		if j, ok := m[target-n]; ok {
-			return []int{j, i}
+	m := map[int]int{}
+	for i := 0; i < len(nums); i++ {
+		if _, ok := m[nums[i]]; ok {
+			return []int{m[nums[i]], i}
 		}
-		m[n] = i
+		m[target-nums[i]] = i
 	}
-	return []int{}
+	panic("not found")
 }
 
 //leetcode submit region end(Prohibit modification and deletion)
