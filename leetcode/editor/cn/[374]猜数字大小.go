@@ -21,6 +21,7 @@ package leetcode_golang
 // 输入: n = 10, pick = 6
 //输出: 6 
 // Related Topics 二分查找
+func guess(num int) int { return 0 }
 
 //leetcode submit region begin(Prohibit modification and deletion)
 /**
