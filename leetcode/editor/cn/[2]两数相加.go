@@ -23,36 +23,48 @@ package leetcode_golang
  * }
  */
 func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
-	l3 := &ListNode{
-		Val:  0,
-		Next: nil,
-	}
-	c := l3
-	up := 0
-	for l1 != nil || l2 != nil || up != 0 {
-		n := up
-		if l1 != nil {
-			n += l1.Val
-		}
-		if l2 != nil {
-			n += l2.Val
-		}
-		if n > 9 {
-			up = 1
-		} else {
-			up = 0
-		}
-		c.Next = &ListNode{
-			Val:  n % 10,
+	carry := 0
+	c1 := l1
+	c2 := l2
+	l3 := &ListNode{}
+	c3 := l3
+	for c1 != nil && c2 != nil {
+		sum := c1.Val + c2.Val + carry
+		c3.Next = &ListNode{
+			Val:  sum % 10,
 			Next: nil,
 		}
-		c = c.Next
-		if l1 != nil {
-			l1 = l1.Next
+		carry = sum / 10
+		c1 = c1.Next
+		c2 = c2.Next
+		c3 = c3.Next
+	}
+	for c1 != nil {
+		sum := c1.Val + carry
+		c3.Next = &ListNode{
+			Val:  sum % 10,
+			Next: nil,
 		}
-		if l2 != nil {
-			l2 = l2.Next
+		carry = sum / 10
+		c1 = c1.Next
+		c3 = c3.Next
+	}
+	for c2 != nil {
+		sum := c2.Val + carry
+		c3.Next = &ListNode{
+			Val:  sum % 10,
+			Next: nil,
 		}
+		carry = sum / 10
+		c2 = c2.Next
+		c3 = c3.Next
+	}
+	if carry != 0 {
+		c3.Next = &ListNode{
+			Val:  carry,
+			Next: nil,
+		}
+		c3 = c3.Next
 	}
 	return l3.Next
 }

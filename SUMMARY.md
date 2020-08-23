@@ -3,6 +3,7 @@
 - [前言](README.md)
 
 - 设计模式
+    - [领域驱动模型](DesignPatterns/领域驱动开发.md)
     - [设计模式六大原则](DesignPatterns/设计模式六大原则.md)
     - [面向对象编程设计原则 SOLID](DesignPatterns/面向对象编程设计原则SOLID.md)
     - [什么是接口](DesignPatterns/什么是接口.md)
