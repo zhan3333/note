@@ -7,7 +7,9 @@ package leetcode_golang
 // 输入: 1->2->6->3->4->5->6, val = 6
 //输出: 1->2->3->4->5
 // 
-// Related Topics 链表
+// Related Topics 链表 
+// 👍 412 👎 0
+
 
 //leetcode submit region begin(Prohibit modification and deletion)
 /**
@@ -18,21 +20,6 @@ package leetcode_golang
  * }
  */
 func removeElements(head *ListNode, val int) *ListNode {
-	p := &ListNode{
-		Next: head,
-		Val:  0,
-	}
-	c := p.Next
-	prev := p
-	for c != nil {
-		if c.Val == val {
-			prev.Next = c.Next
-		} else {
-			prev = c
-		}
-		c = c.Next
-	}
-	return p.Next
-}
 
+}
 //leetcode submit region end(Prohibit modification and deletion)

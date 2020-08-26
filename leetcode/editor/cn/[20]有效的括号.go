@@ -1,6 +1,6 @@
 package leetcode_golang
 
-//给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串，判断字符串是否有效。 
+//给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串，判断字符串是否有效。
 //
 // 有效字符串需满足： 
 //
@@ -43,22 +43,18 @@ package leetcode_golang
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func isValid(s string) bool {
-	stack := make([]string, 0)
-	var m = map[string]string{
+	stack := []string{}
+	m := map[string]string{
 		")": "(",
 		"]": "[",
 		"}": "{",
 	}
 	for i := 0; i < len(s); i++ {
 		c := string(s[i])
-		if c == "(" || c == "[" || c == "{" {
-			stack = append(stack, string(s[i]))
+		if len(stack) != 0 && stack[len(stack)-1] == m[c] {
+			stack = stack[0 : len(stack)-1]
 		} else {
-			if len(stack) > 0 && stack[len(stack)-1] == m[c] {
-				stack = stack[0 : len(stack)-1]
-			} else {
-				return false
-			}
+			stack = append(stack, c)
 		}
 	}
 	return len(stack) == 0
