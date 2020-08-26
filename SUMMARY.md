@@ -37,6 +37,8 @@
   - [线程安全](PHP/线程安全 md)
   - [FPM](PHP/FPM.md)
   - [Zend 虚拟机](PHP/Zend虚拟机.md)
+- Git
+  - [不常见的使用](Git/不常见的使用.md)
 - RabbitMQ
     - [RabbitMQ](RabbitMQ/RabbitMQ.md)
 - Redis
@@ -89,8 +91,6 @@
   - Frp
     - [安装使用](Tool/Frp/安装.md)
     - [frp 配置 smb](Tool/Frp/frp 配置 smb.md)
-  - Git
-    - [不常见的使用](Git/不常见的使用.md)
   - Gitbook
     - [Gitbook 起步](Tool/Gitbook/Gitbook 起步.md)
     - [使用 github Actions 来自动 build gitbook 上传到服务器](Tool/Gitbook/使用 github Actions 来自动 build 上传到服务器.md)
