@@ -22,19 +22,20 @@ func longestPalindrome(s string) string {
 		return s
 	}
 	dp := [1000][1000]bool{}
-	var start = 0
-	var end = 0
+	l := 0
+	r := 0
 	for i := 0; i < len(s); i++ {
 		dp[i][i] = true
 		for j := i - 1; j >= 0; j-- {
+			// i-j == 1 是为了判断连个相邻字符是否为回文
+			// dp[i-1][j+1] 是为了判断两端去除一个字符后是否为回文
 			dp[i][j] = (s[i] == s[j]) && (i-j == 1 || dp[i-1][j+1])
-			if dp[i][j] && end-start < i-j {
-				start = j
-				end = i
+			if dp[i][j] && r-l < i-j {
+				l, r = j, i
 			}
 		}
 	}
-	return s[start : end+1]
+	return s[l : r+1]
 }
 
 //leetcode submit region end(Prohibit modification and deletion)
