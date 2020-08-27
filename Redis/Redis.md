@@ -1002,3 +1002,13 @@ poll列表, 默认 16 个 key, 按照空闲时间排序, key 只有在 poll 不�
 
 嵌入到 redis 中执行, 可以高效的执行 check-set 这样的操作, 并且是原子性的操作. 
 一个脚本运行的时候, 中间不会有其它脚本或者 Redis 命令被执行.
+
+### hashtable 退化为 ziplist
+
+### hgetall 或者 hashtable 有很多 key 如何优化
+
+### 跳表
+
+### 网络模型
+
+### 主从如何保持一致
