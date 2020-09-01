@@ -22,6 +22,7 @@ package leetcode_golang
 //leetcode submit region begin(Prohibit modification and deletion)
 
 func maxArea(height []int) int {
+	// 两头指针, 每次向中间移动较小的边 (因为移动大的边面积一定减少)
 	if len(height) == 0 {
 		return 0
 	}
