@@ -27,6 +27,7 @@ package leetcode_golang
  * }
  */
 func removeNthFromEnd(head *ListNode, n int) *ListNode {
+	// 易错点在于当需要移除第一个数的时候, r = nil, 可以直接返回 l.Next 了
 	l, r := head, head
 	for i := 0; i < n; i++ {
 		r = r.Next
