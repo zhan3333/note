@@ -26,21 +26,13 @@ func canJump(nums []int) bool {
 	if len(nums) <= 1 {
 		return true
 	}
-	nums[0] = -nums[0]
-	for i, n := range nums {
-		if n >= 0 {
-			continue
-		}
-		for j := 1; j <= -n; j++ {
-			if i+j == len(nums)-1 {
-				return true
-			}
-			if nums[i+j] > 0 {
-				nums[i+j] = -nums[i+j]
-			}
+	c := len(nums) - 1
+	for i := len(nums) - 2; i >= 0; i-- {
+		if nums[i] + i >= c {
+			c = i
 		}
 	}
-	return false
+	return c == 0
 }
 
 //leetcode submit region end(Prohibit modification and deletion)
