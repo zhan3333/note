@@ -41,14 +41,21 @@ package leetcode_golang
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func uniquePaths(m int, n int) int {
-	var ans int
-	var used [100][100]bool
-	used[0][0] = true
-	backtracking(0, 0, m, n, used, &ans)
-	return ans
+	// 回溯算法超时, 改用动态规划
+	var dp [100][100]int
+	for i := 0; i < m; i++ {
+		for j := 0; j < n; j++ {
+			if i == 0 || j == 0 {
+				dp[i][j] = 1
+			} else {
+				dp[i][j] = dp[i-1][j] + dp[i][j-1]
+			}
+		}
+	}
+	return dp[m-1][n-1]
 }
 
-func backtracking(h, w, m, n int, used [100][100]bool, ans *int) {
+func backtracking(h, w, m, n int, used *[100][100]bool, ans *int) {
 	if h == m-1 && w == n-1 {
 		// 到达了终点
 		*ans++
@@ -57,10 +64,12 @@ func backtracking(h, w, m, n int, used [100][100]bool, ans *int) {
 	if h < m-1 && !used[h+1][w] {
 		used[h+1][w] = true
 		backtracking(h+1, w, m, n, used, ans)
+		used[h+1][w] = false
 	}
 	if w < n-1 && !used[h][w+1] {
 		used[h][w+1] = true
 		backtracking(h, w+1, m, n, used, ans)
+		used[h][w+1] = false
 	}
 }
 
