@@ -17,6 +17,12 @@ sudo apt update && sudo apt upgrade -y
 
 - 禁止使用密码登录，而使用秘钥登录
 
+`vim /etc/ssh/sshd_config`
+
+PasswordAuthentication no
+
+重启服务: `systemctl restart sshd.service`
+
 ## 修改ssh默认端口
 
 ## 使用fail2ban
