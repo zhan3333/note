@@ -1,5 +1,9 @@
 # Golang
 
+## 哪些数据类型是引用
+
+go 中四种引用类型有 slice， channel， function， map
+
 ## [2] etcd (如何保证高可用, 选举机制, 脑裂如何解决)
 
 ### 是什么
@@ -74,6 +78,9 @@ b := make([]int, 3, 5)
 
 1. Mutex 互斥锁
 2. 通道
+3. sync.WaitGroup
+4. context
+5. 共享全局变量
 
 ## waitgroup 和 context 区别
 
