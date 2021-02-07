@@ -84,19 +84,68 @@ b := make([]int, 3, 5)
 
 ## waitgroup 和 context 区别
 
+context 可以协调多个 grooutine 中的代码执行"取消"操作,并且可以储存键值对.是并发安全的. 可以由外部控制 goroutine 的取消.
+context 在多个 goroutine 之间共享值,取消信号,deadline 等
+
+waitgroup 用于 goroutine 计数完成等待等操作,goroutine中通过 Done() 方法告知 wg 协程结束. 无法从外部去控制协程的关闭.
+
+
 ## 如何处理异常 defer
+
+defer 中使用 recover() 来获取异常信息
 
 ## 通用 http 请求日志打印如何封装
 
 ## etcd mvcc , k8s pod 之间如何通信
 
-## [2] go 的调度模型
+## [2] go 并发调度模型
+
+1. 使用 groutine 实现的并发
+2. go 调度器将多个协程按照一定的算法调度到操作系统的线程上执行.
+3. GPM 调度模型
+  a. Goroutine (协程): 储存 Goroutine 的运行堆栈,状态以及任务函数, G需要绑定到P才可以被调度执行
+  b. Process (逻辑处理器): 提供了执行相关的执行环境(Context),如分配状态(Machine),任务队列(G)等, P数量决定了G并行的上限(前提物理CPU核数>=P数量)
+  c. Machine (OS 线程抽象): 真正执行计算的资源
+4. goroutine 是轻量级的,开始使用2k大小的栈,后面可以动态调整
+5. 低调度成本: 线程在内核切换是依据时间片执行完后的检查,需要保存线程状态,恢复线程时需要从寄存器中恢复状态,所以慢.而 goroutine 是用户层进行调度的,不需要内核上的上下文切换,所以成本低很多.
+
+G队列: 全局队列, P本地队列
+
+M从P中取出(无锁)G来执行, P中没有G使, P会从全局队列中取(有锁)取一个G给M执行, 当全局队列也没有G时, P会从其它的P窃取一个G来给M执行, 都没有G时, PM会解绑,M进入休眠状态.
+
+M的堆栈和M所需的寄存器（SP、PC等）保存到G中，实现现场保护.
+
+使用了m:n调度的技术，即复用或调度m个goroutine到n个OS线程。其中m的调度由Go程序的 runtime 负责，n的调度由OS负责。这让m的调度可以在用户态下完成，不会造成内核态和用户态见的频繁切换。同时，内存的分配和释放，文件的IO等，Go也通过内存池和netpoll等技术，尽量减少内核态的调用。
+
 
 ## go struct 能不能比较?
+
+可以比较的类型: Integer，Floating-point，String，Boolean，Complex(复数型)，Pointer，Channel，Interface，Array
+不能比较的类型: Slice，Map，Function
+
+可以通过 `reflect.DeepEqual()` 来比较两个值是否深度一致(结构体中有不可比较的成员也可以进行对比)
+
+有些情况可以比较, 有些情况不能比较
+
+1. 相同类型的结构体, 且结构体成员都是可比较类型, 则可以比较
+2. 不同类型的结构体, 通过强制转换类型来尝试比较
+
+## go struct 可以作为 map 的 key 吗?
+
+struct 可以比较时, 可以作为 map 的key
 
 ## [2] go defer (for defer)
 
 ## [3] select 可以干什么
+
+Select 可以让 Goroutine 同时等待多个 Channel 可读或者可写, 与 epoll 类似, 可以无可读可写时, Select 会阻塞当前线程或 Goroutine
+
+执行判断顺序:
+
+1. 除 default 外，如果只有一个 case 语句评估通过，那么就执行这个case里的语句；
+2. 除 default 外，如果有多个 case 语句评估通过，那么通过伪随机的方式随机选一个；
+3. 如果 default 外的 case 语句都没有通过评估，那么执行 default 里的语句；
+4. 如果没有 default，那么 代码块会被阻塞，指导有一个 case 通过评估；否则一直阻塞
 
 ## [4] epoll
 
