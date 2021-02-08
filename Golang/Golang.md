@@ -151,15 +151,43 @@ Select 可以让 Goroutine 同时等待多个 Channel 可读或者可写, 与 ep
 
 ## context 包的用途
 
+[参考地址](https://juejin.cn/post/6844903555145400334)
+
+context 用于简化处理多个 goroutine 之间的数据共享,取消信号,截止时间等操作.
+
+Deadline() (deadline time.Time, ok bool) 方法获取设置的截止时间, 一个参数为截止时间, 到了这个时间 ctx 会自动发起取消请求. 如果没有设置截止时间, 那么需要手动调用 cancel() 方法来停止. ok==false时表示没有设置截止时间
+Done() <-chan struct{} 是一个只读的 channel, 返回 struct{}, 当有信号时,表明parent context 已经发起了取消, goroutine 中通过 Done chan 获取到取消信号后, 应当做清理操作,然后退出协程,释放资源
+Err() error: 返回 ctx 为什么被取消
+Value(key interface{}) interface{} : 获取 ctx 上绑定的值, 通常线程安全
+
+golang context的理解，context主要用于父子任务之间的同步取消信号，本质上是一种协程调度的方式。另外在使用context时有两点值得注意：上游任务仅仅使用context通知下游任务不再需要，但不会直接干涉和中断下游任务的执行，由下游任务自行决定后续的处理操作，也就是说context的取消操作是无侵入的；context是线程安全的，因为context本身是不可变的（immutable），因此可以放心地在多个协程中传递使用。
+
 ## client 如何实现长连接
 
 ## 主协程如何等其余协程完再操作
 
+使用 sync.WithGroup 来控制等待
+
 ## slice, len, cap, 共享, 扩容
+
+slice 是 array 的一段的引用
+
+len() 返回元素的数量
+cap() 返回切片能够达到的最大长度
+共享: 多个切片如果是一个数组的片段, 它们可以共享数据.
+优点: 因为切片是引用, 所以不需要额外的内存, 使用起来比数组更有效率.
+扩容: slice append 时会发生扩容, 扩容少量元素时(扩容后能容纳append的元素), cap 不够1024的直接翻倍, 大于等于1024的, 乘以1.25
+slice append 大量元素, 且按照上述规则无法容纳时,直接使用预估的容量, 新容量会根据切片元素的类型,进行向上取整(内存对齐), 作为新 slice 的容量.
 
 ## map 如何实现顺序读取
 
+map 的读取是无序的
+
+转 slice, 排序后再读取
+
 ## 实现 set
+
+通过  map[Type]struct{} 来实现 set, struct{} 空结构体在go中不占内存
 
 ## 实现消息队列 (多消费者, 多生产者) channel 实现
 
@@ -290,3 +318,8 @@ make
 ## 用户态和内核态
 
 ## 一个main函数内用go 开启多个协程，现在一个协程panic了，main函数会怎样？ 为什么？
+
+## go 优点缺点
+
+优势：容易学习，生产力，并发，动态语法。
+劣势：包管理，错误处理，缺乏框架。
