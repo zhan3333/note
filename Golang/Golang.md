@@ -90,6 +90,7 @@ context 在多个 goroutine 之间共享值,取消信号,deadline 等
 waitgroup 用于 goroutine 计数完成等待等操作,goroutine中通过 Done() 方法告知 wg 协程结束. 无法从外部去控制协程的关闭.
 
 
+
 ## [2] 如何处理异常 defer
 
 defer 中使用 recover() 来获取异常信息
@@ -152,7 +153,7 @@ Select 可以让 Goroutine 同时等待多个 Channel 可读或者可写, 与 ep
 
 ## [4] epoll
 
-## context 包的用途
+## [2] context 包的用途
 
 [参考地址](https://juejin.cn/post/6844903555145400334)
 
@@ -283,8 +284,6 @@ type hchan struct {
 
 ## docker 预热
 
-## go waitgroup 坑
-
 ## 协程 
 
 ## 实现协程完美退出
@@ -368,8 +367,6 @@ make
 
 ## mysql 连接池实现
 
-## ctx 包的作用
-
 ## channel 实现定时器
 
 ## go 为什么高并发
@@ -391,7 +388,22 @@ GPM 模型: 任务窃取, 减少阻塞
 
 ## 用户态和内核态
 
+内核态: 进程执行系统调用而陷入内核代码中执行时, 乘坐内核态运行
+用户态: 进程执行用户自己的代码时, 处于用户运行态
+
+### 用户态切换内核态三种方式
+
+1. 系统调用(主动)
+2. 系统异常(被动)
+3. 外围设备的中断(被动)
+
+
 ## 一个main函数内用go 开启多个协程，现在一个协程panic了，main函数会怎样？ 为什么？
+
+1. 协程A panic, 协程 B 也会挂掉 (程序会整体退出)
+2. 协程A panic, 协程 B 不能用 recover 捕获到协程A 的panic
+
+原因: panic 能够改变程序的控制流, 只能在当前 Goroutine 中的 defer 使用 recover() 处理这个 panic
 
 ## [2] go 优点缺点
 
