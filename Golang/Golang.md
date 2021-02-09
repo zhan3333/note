@@ -14,7 +14,7 @@ go 中四种引用类型有 slice， channel， function， map
 
 通过Raft一致性算法处理日志复制以保证强一致性
 
-### raft 选举
+### [3] raft 选举
 
 是一种分布式一致性算法
 
@@ -90,7 +90,7 @@ context 在多个 goroutine 之间共享值,取消信号,deadline 等
 waitgroup 用于 goroutine 计数完成等待等操作,goroutine中通过 Done() 方法告知 wg 协程结束. 无法从外部去控制协程的关闭.
 
 
-## 如何处理异常 defer
+## [2] 如何处理异常 defer
 
 defer 中使用 recover() 来获取异常信息
 
@@ -98,7 +98,7 @@ defer 中使用 recover() 来获取异常信息
 
 ## etcd mvcc , k8s pod 之间如何通信
 
-## [2] go 并发调度模型
+## [3] go 并发调度模型 (GPM模型)
 
 1. 使用 groutine 实现的并发
 2. go 调度器将多个协程按照一定的算法调度到操作系统的线程上执行.
@@ -116,6 +116,9 @@ M从P中取出(无锁)G来执行, P中没有G使, P会从全局队列中取(有�
 M的堆栈和M所需的寄存器（SP、PC等）保存到G中，实现现场保护.
 
 使用了m:n调度的技术，即复用或调度m个goroutine到n个OS线程。其中m的调度由Go程序的 runtime 负责，n的调度由OS负责。这让m的调度可以在用户态下完成，不会造成内核态和用户态见的频繁切换。同时，内存的分配和释放，文件的IO等，Go也通过内存池和netpoll等技术，尽量减少内核态的调用。
+
+### 为什么这样设计
+
 
 
 ## go struct 能不能比较?
@@ -191,27 +194,90 @@ map 的读取是无序的
 
 ## 实现消息队列 (多消费者, 多生产者) channel 实现
 
+[示例](./go-producer-consumer-demo/main.go)
+
 ## 实现循环队列, 保证线程安全 (原子操作和 channel)
 
+[示例](./circular-queue/main.go)
+
 ## [4] channel 底层实现
+
+[参考](https://draveness.me/golang/docs/part3-runtime/ch06-concurrency/golang-channel/)
+
+数据结构: 底层使用循环链表作为缓存结构
+发送和接收: 通过 sendx++ 增加接收消息数量, recvx++ 消费消息, 对 buf 加锁, 通过复制内存的方式取得消息 
+阻塞: goroutine 会变为 waiting 状态, 空出 M 给其它协程使用.
+恢复: chan.sendq list 中会保存 waiting 状态的 goroutine, 通道可用时, 会通知调度器, 将 goroutine 状态置为 runnable, 然后加入 P 中的 runqueue 中, 等待 M 执行
+sendx: 发送消息在循环队列下标
+recvx: 接收消息在循环队列下标
+recvq: 接收者等待双向链表
+sendq: 发送者等待双向链表
+
+```go
+type hchan struct {
+    // Channel 中元素个数
+	qcount   uint
+    // Channel 中循环队列的长度
+	dataqsiz uint
+    // Channel 的缓冲区数据指针
+	buf      unsafe.Pointer
+    // 能够收发的元素大小
+	elemsize uint16
+    // Channel 是否已经关闭
+	closed   uint32
+    // 能够收发的元素类型
+	elemtype *_type
+    // Channel 的发送操作处理到的位置
+	sendx    uint
+    // Channel 的接收操作处理到的位置
+	recvx    uint
+	// 由于缓冲区空间不足而阻塞的接收 goroutine 双向链表
+	recvq    waitq
+    // 由于缓冲区空间不足而阻塞的发送 goroutine 双向链表
+	sendq    waitq
+
+	lock mutex
+}
+```
+
+### 发送数据时
+
+1. 如果当前 Channel 的 recvq 上存在已经被阻塞的 Goroutine，那么会直接将数据发送给当前 Goroutine 并将其设置成下一个运行的 Goroutine；
+2. 如果 Channel 存在缓冲区并且其中还有空闲的容量，我们会直接将数据存储到缓冲区 sendx 所在的位置上；
+3. 如果不满足上面的两种情况，会创建一个 runtime.sudog 结构并将其加入 Channel 的 sendq 队列中，当前 Goroutine 也会陷入阻塞等待其他的协程从 Channel 接收数据；
+
+发送数据的过程中包含几个会触发 Goroutine 调度的时机：
+
+1. 发送数据时发现 Channel 上存在等待接收数据的 Goroutine，立刻设置处理器的 runnext 属性，但是并不会立刻触发调度；
+2. 发送数据时并没有找到接收方并且缓冲区已经满了，这时会将自己加入 Channel 的 sendq 队列并调用 runtime.goparkunlock 触发 Goroutine 的调度让出处理器的使用权；
+
+### 接收数据时
+
+从 Channel 中接收数据时可能会发生的五种情况：
+
+1. 如果 Channel 为空，那么会直接调用 runtime.gopark 挂起当前 Goroutine；
+2. 如果 Channel 已经关闭并且缓冲区没有任何数据，runtime.chanrecv 会直接返回；
+3. 如果 Channel 的 sendq 队列中存在挂起的 Goroutine，会将 recvx 索引所在的数据拷贝到接收变量所在的内存空间上并将 sendq 队列中 Goroutine 的数据拷贝到缓冲区；
+4. 如果 Channel 的缓冲区中包含数据，那么直接读取 recvx 索引对应的数据；
+5. 在默认情况下会挂起当前的 Goroutine，将 runtime.sudog 结构加入 recvq 队列并陷入休眠等待调度器的唤醒；
+
+从 Channel 接收数据时，会触发 Goroutine 调度的两个时机：
+
+1. 当 Channel 为空时；
+2. 当缓冲区中不存在数据并且也不存在数据的发送者时；
+
 
 ## go-micro 使用
 
 ## [3] 如何做服务发现
 
-## [2] raft 算法/特点
-
 ## go 线上内存泄漏
 
 ## k8s 集群网络
 
-## go GMP 源码分析
-
 ## go map slice 实现 (源码分析及 slice 内存泄漏分析)
 
 ## [2] go 内存逃逸(泄漏)分析
-
-## defer recover 相关问题
 
 ## [2] gdb
 
@@ -223,13 +289,18 @@ map 的读取是无序的
 
 ## 实现协程完美退出
 
+sync.WaitGroup
+context
+
 ## [3] go 内存分配
+
+### 分配
+
+### 回收
 
 ## 有 mcentral 为什么要 mcache
 
 ## go 协程切换
-
-## go 优缺点
 
 ## go 错误处理有什么特点
 
@@ -265,7 +336,7 @@ map 的读取是无序的
 
 ## Go的反射包怎么找到对应的方法
 
-## 退出程序时怎么防止channel没有消费完
+## 退出程序时怎么防止 channel 没有消费完
 
 ## sync.Pool 细节
 
@@ -315,11 +386,30 @@ make
 
 ## go 怎么原生支持高并发？
 
+协程: 用户态的轻量级线程, 调度由用户控制. 协程占用内存小, 上下文切换代价小.
+GPM 模型: 任务窃取, 减少阻塞
+
 ## 用户态和内核态
 
 ## 一个main函数内用go 开启多个协程，现在一个协程panic了，main函数会怎样？ 为什么？
 
-## go 优点缺点
+## [2] go 优点缺点
 
 优势：容易学习，生产力，并发，动态语法。
 劣势：包管理，错误处理，缺乏框架。
+
+## 系统信号监听
+
+[go 监听信号](https://gist.github.com/biezhi/74bfe20f9758210c1be18c64e6992a37)
+
+## go sync 包中的锁
+
+[参考](https://juejin.cn/post/6844904147880263694)
+
+`sync.Mutex`: 共享资源上的互斥访问
+`sync.RWMutex`: 读写锁, 可以实现共享读
+`sync.WaitGroup`: 计数器, 当计数器为0时 `Wait()` 方法会立即返回
+`sync.Map`: map 的并发版本, 多读少写的情况下使用这个锁
+`sync.Pool`: 并发池, 负责安全的保护一组对象
+`sync.Once`: 确保一个函数只执行一次
+`sync.Cond`: 阻塞锁, 使用 Wait() 阻塞协程, 用 Signal() 告知一个协程等待解除. 或者用 Broadcast() 告知所有协程等待解除.
