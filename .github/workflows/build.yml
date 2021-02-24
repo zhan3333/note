@@ -33,10 +33,8 @@ jobs:
           npm root -g
           sudo npm install -g gitbook-cli
           gitbook install
-          sudo npm install -g gitbook-summary
       - name: build
         run: |
-          book sm
           gitbook build
 
       - name: copy dir to remote server

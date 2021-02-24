@@ -2,7 +2,7 @@
   "title": "zhan 编程笔记",
   "outputfile": "SUMMARY.md",
   "catalog": "all",
-  "ignores": [".vscode", "_book", "node_modules"],
+  "ignores": [".vscode", "_book", "node_modules", "面试"],
   "unchanged": [],
   "sortedBy": "-",
   "disableTitleFormatting": true,
@@ -14,7 +14,6 @@
     "simple-page-toc",
     "edit-link",
     "copy-code-button",
-    "gittalk",
     "expandable-chapters",
     "splitter",
     "3-ba",
@@ -52,16 +51,6 @@
     "simple-page-toc": {
       "maxDepth": 3,
       "skipFirstH1": true
-    },
-    "gittalk": {
-      "clientID": "f3f090f32cd699ced1e0",
-      "clientSecret": "418e38be30a228e7f824f5cefbc0a9c66ed65ec5",
-      "repo": "note",
-      "owner": "zhan3333",
-      "admin": [
-        "zhan3333"
-      ],
-      "distractionFreeMode": false
     },
     "3-ba": {
       "token": "c0ea51a59e43824b86dd1cdb4d773734"
