@@ -10,7 +10,7 @@ jobs:
     steps:      
       
       - name: Check out source code
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
         
       - name: Setup Node.js for use with actions
         uses: actions/setup-node@v2.1.4
@@ -18,8 +18,11 @@ jobs:
       - name: install
         run: |
           sudo npm install -g gitbook-cli
-          sudo npm install graceful-fs@latest --save
           gitbook install
+          sudo npm install -g gitbook-summary
+      - name: build
+        run : |
+          book sm
           gitbook build
 
       - name: copy dir to remote server

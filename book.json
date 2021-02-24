@@ -1,4 +1,11 @@
 {
+  "title": "zhan 编程笔记",
+  "outputfile": "SUMMARY.md",
+  "catalog": "all",
+  "ignores": [".vscode", "_book", "node_modules"],
+  "unchanged": [],
+  "sortedBy": "-",
+  "disableTitleFormatting": true,
   "description": "程序员笔记",
   "plugins": [
     "sitemap",
