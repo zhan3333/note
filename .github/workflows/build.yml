@@ -1,28 +1,29 @@
 name: Build Gitbook and upload to self server
 
-on: [push]
+on: [ push ]
 
 jobs:
   build:
 
     runs-on: ubuntu-latest
 
-    steps:      
-      
+    steps:
+
       - name: Check out source code
         uses: actions/checkout@v2
-        
+
       - name: Setup Node.js for use with actions
         uses: actions/setup-node@v2.1.4
+        with:
+          node-version: '10'
 
       - name: install
         run: |
-          sudo npm install -g graceful-fs@latest
           sudo npm install -g gitbook-cli
           gitbook install
           sudo npm install -g gitbook-summary
       - name: build
-        run : |
+        run: |
           book sm
           gitbook build
 
