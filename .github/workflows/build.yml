@@ -17,7 +17,7 @@ jobs:
 
       - name: install
         run: |
-          npm install -g gitbook-cli
+          sudo npm install -g gitbook-cli
           gitbook install
           gitbook build
 
