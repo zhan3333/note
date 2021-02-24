@@ -17,6 +17,7 @@ jobs:
 
       - name: install
         run: |
+          sudo npm install graceful-fs@latest --save
           sudo npm install -g gitbook-cli
           gitbook install
           sudo npm install -g gitbook-summary
