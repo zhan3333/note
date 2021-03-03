@@ -227,6 +227,8 @@ group by 执行顺序从左往右分组
 MySQL 默认采用异步复制方式, 这样从节点不用一直访问主服务器来更新自己的数据. 数据的更新可以再远程连接上进行, 
 从节点可以复制主数据库中的所有数据库或者特定的数据库, 或者特定的表.
 
+采取从节点向主节点 pull 的方式同步.
+
 #### 主要用途
 
 - 读写分离
@@ -317,11 +319,11 @@ MySQL 默认采用异步复制方式, 这样从节点不用一直访问主服务
                 - ABA 问题, 可能 变量 V 的值在中间变化为了 C 然后又变化为了 A, 这个时候无法确定数据时没有变化的.
                 - 循环时间长开销大: 如果长时间不成功, 会给 CPU 带来非常大的执行开销.
 
-### binlog 日志是master推的还是salve来拉的?
+### binlog 日志是 master 推的还是 slave 来拉的?
 
-master 主动推送.
+slave pull.
 
-具体流程: slave 连接到 master 时, master 机器会为 slave 开启 binlog dump 线程, binlog 发生变化时, dinlog dump 线程会通知 salve, 并将相应的内容发送给 slave
+具体流程: slave 连接到 master 时, master 机器会为 slave 开启 binlog dump 线程, binlog 发生变化时, binlog dump 线程会通知 salve, 并将相应的内容发送给 slave
 
 ### [5] MySQL 事务的四个隔离级别? (哪几个级别, 每个级别可能有的问题, 分别解决什么问题)
 

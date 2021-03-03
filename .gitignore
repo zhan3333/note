@@ -2,3 +2,6 @@
 /_book
 /.idea
 /node_modules
+go.mod
+go.sum
+vendor/

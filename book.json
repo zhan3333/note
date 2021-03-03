@@ -56,7 +56,6 @@
       "token": "c0ea51a59e43824b86dd1cdb4d773734"
     },
     "anchor-navigation-ex": {
-      "isRewritePageTitle": true,
       "isShowTocTitleIcon": true,
       "tocLevel1Icon": "fa fa-hand-o-right",
       "tocLevel2Icon": "fa fa-hand-o-right",
