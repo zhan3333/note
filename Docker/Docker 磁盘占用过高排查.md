@@ -16,3 +16,4 @@
 未被任何容器所关联的网络（network）
 所有悬空镜像（image）
 
+删除未被使用的 local volumns : `docker volume rm $(docker volume ls -q)`
