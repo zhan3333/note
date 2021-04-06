@@ -1,13 +1,11 @@
-# 开发博客
+# 编程笔记
 
-## 记录开发过程中遇到的问题
+## 记录编程生涯中经验
 
+- 算法
 - 设计模式
-- MySQL
-- PHP
-- RabbitMQ
+- 数据库 MySQL
 - Redis
-- Swoole
+- 消息队列 RabbitMQ
 - Golang
-- Linux
-- LeetCode
+- PHP
