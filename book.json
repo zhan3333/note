@@ -2,13 +2,16 @@
   "title": "zhan 编程笔记",
   "outputfile": "SUMMARY.md",
   "catalog": "all",
-  "ignores": [".vscode", "_book", "node_modules", "面试"],
+  "ignores": [
+    ".vscode",
+    "_book",
+    "node_modules"
+  ],
   "unchanged": [],
   "sortedBy": "-",
   "disableTitleFormatting": true,
   "description": "程序员笔记",
   "plugins": [
-    "sitemap",
     "github",
     "github-buttons",
     "simple-page-toc",
@@ -21,9 +24,6 @@
     "pageview-count"
   ],
   "pluginsConfig": {
-    "sitemap": {
-      "hostname": "https://note.grianchan.com/"
-    },
     "github": {
       "url": "https://github.com/zhan3333"
     },

@@ -8,9 +8,10 @@
 
 ### 几种消息队列的对比
 
-- RabbitMQ
+- RabbitMQ (队列模式/消息代理)
     - Erlang
     - 支持多种语言
+    - 客户端 SDK: Java .NET, Ruby, Python, PHP, NodeJS, Rust, C/C++, GO, Erlang (由于是商业维护, 支持非常多客户端)
     - 多协议支持 AMQP, XMPP< SMTP, STOMP
     - 不支持批量消息操作
     - master/slave, slave 只做备份
@@ -39,6 +40,7 @@
 - RocketMQ
     - Java
     - 支持语言: Java, C++(不成熟)
+    - 客户端 SDK: Java，C++，Python，Go，Node.Js
     - 协议支持: 自己定义的一套(社区提供的 JMS 不成熟)
     - 消息批量操作: 支持
     - 消息推拉模式: 多协议, Pull/Push 都支持
@@ -51,9 +53,10 @@
     - 均衡负载: 支持
     - 管理界面: 命令行界面
     
-- Kafka
+- Kafka (发布订阅模式/分布式流式系统/消息当日志储存)
     - Scala & Java
     - 官方支持 Java, 开源社区有多语言版本
+    - 客户端 SDK: C/C++, Python, Go, NodeJS, PHP 支持非常多  [官方文档](https://cwiki.apache.org/confluence/display/KAFKA/Clients)
     - 协议支持: 自有协议, 社区封装了 HTTP 协议
     - 消息批量操作: 支持
     - 消息推拉模式: Pull
@@ -62,6 +65,7 @@
     - 单机吞吐量: 次之(十万级)
     - 消息延迟: 毫秒级
     - 事务: 不支持, 但可以通过 Low Level API 保证仅消费一次
+    - 顺序处理: 有
     - 集群: 支持
     - 负载均衡: 支持
     - 管理界面: 官网命令行, 有开源界面
