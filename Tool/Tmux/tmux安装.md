@@ -3,9 +3,9 @@
 ## 安装
 
 ```shell
-wget https://github.com/tmux/tmux/releases/download/2.9/tmux-2.9.tar.gz
-tar xzvf tmux-2.9.tar.gz
-cd tmux-2.9
+wget https://github.com/tmux/tmux/releases/download/3.2/tmux-3.2.tar.gz
+tar xzvf tmux-3.2.tar.gz
+cd tmux-3.2
 ./configure
 make && sudo make install
 ```

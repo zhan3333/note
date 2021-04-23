@@ -16,6 +16,7 @@ vim ~/.zshrc
 
 ```shell
 ZSH_THEME="agnoster"
+ZSH_THEME="ys"
 ```
 
 ## 安装字体 (修复`agnoster`主题乱码问题)
