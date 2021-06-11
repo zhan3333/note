@@ -2,8 +2,7 @@
 
 ## macos 安装 maven
 
-1. 打开 Maven 官网下载页面：maven.apache.org/download.cg…
-   下载:apache-maven-3.5.0-bin.tar.gz
+1. 打开 Maven 官网下载页面：maven.apache.org/download.cg… 下载:apache-maven-3.5.0-bin.tar.gz
 
 2. 解压下载的安装包到某一目录，比如：/Users/xxx/Documents/maven
 
@@ -53,3 +52,41 @@ mvn package -Dmaven.test.skip=true
         <skip>true</skip>
     </configuration>
 ```
+
+## ～/.m2/settings.xml
+
+这里的 username, password 需要从 `https://oss.sonatype.org/` Profile -> User Token -> Access User Token 获取
+
+```xml
+
+<settings>
+    <servers>
+        <server>
+            <id>ossrh</id>
+            <username>****</username>
+            <password>****</password>
+        </server>
+    </servers>
+</settings>
+```
+
+## mvn 命令常用参数
+
+```
+-s settings path : 指定 settings.xml 位置
+-X : 输出 debug 内容
+-P : 指定 pom.xml 中的 profile
+```
+
+## 发布流程
+
+1. mvn clean deploy
+2. sonatype -> Staging Repositories -> close (会等几分钟)-> release (会等几个小时到 Maven 中央仓库) 
+
+## 安装并配置 GPG
+
+gpg --gen-key
+
+gpg --list-keys
+
+gpg --keyserver hkp://keyserver.ubuntu.com:11371 --send-keys CAB4165C69B699D989D2A62BD74A11D3F9F41243
