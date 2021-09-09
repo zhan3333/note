@@ -12,3 +12,7 @@
 
 回滚 merge commit
 `https://blog.csdn.net/allanGold/article/details/103288645`
+
+## gitlab CI 缓存 vendor
+
+https://docs.gitlab.com/ee/ci/caching/#cache-go-dependencies
