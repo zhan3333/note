@@ -75,3 +75,7 @@ https://www.mcmod.cn/class/167.html
 > 搬箱器
 
 https://www.mcmod.cn/class/1187.html
+
+## ae2 矿物在 ie2 打粉机中打粉
+
+https://www.bilibili.com/read/cv5014444
