@@ -13,3 +13,9 @@ show variables like "max_connections";
 ```mysql
 set global max_connections = 200;
 ```
+
+## on dulicate key update deadlock bug 
+
+https://mingwho.com/posts/insert-on-duplicate/
+
+主要是 next-key 导致的死锁，最好改为 insert 调用。
