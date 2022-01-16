@@ -68,7 +68,7 @@
         * [npm换源](programme/前端/npm换源.md)
         * [Ubuntu安装node环境](programme/前端/Ubuntu安装node环境.md)
     - Java
-        * [如何开发一个Java SDK](programme/Java/如何开发一个Java SDK.md)
+        * [如何开发一个Java SDK](programme/Java/如何开发一个Java%20SDK.md)
         * [学Java](programme/Java/学Java.md)
         * [maven发布到仓库](programme/Java/maven发布到仓库.md)
     - K8S
@@ -96,7 +96,7 @@
         * [ssh执行命令](programme/Linux/ssh执行命令.md)
         * [Supervisor](programme/Linux/Supervisor.md)
         * [tar](programme/Linux/tar.md)
-        * [Ubuntu add-apt-repository command not found](programme/Linux/Ubuntu add-apt-repository command not found.md)
+        * [Ubuntu add-apt-repository command not found](programme/Linux/Ubuntu%20add-apt-repository%20command%20not%20found.md)
         * [Ubuntu安装](programme/Linux/Ubuntu安装.md)
         * [Ubuntu安装桌面配置工具](programme/Linux/Ubuntu安装桌面配置工具.md)
         * [Ubuntu上安装小飞机](programme/Linux/Ubuntu上安装小飞机.md)
@@ -180,7 +180,7 @@
         * [安装](Tool/Frp/安装.md)
         * [frp 配置 smb](Tool/Frp/frp%20配置%20smb.md)
     - Gitbook
-        * [使用github Actions来自动build上传到服务器](Tool/Gitbook/使用github Actions来自动build上传到服务器.md)
+        * [使用github Actions来自动build上传到服务器](Tool/Gitbook/使用github%20Actions来自动build上传到服务器.md)
         * [Gitbook 起步](Tool/Gitbook/Gitbook%20起步.md)
     - Homebrew
         * [切换源](Tool/Homebrew/切换源.md)
@@ -198,7 +198,7 @@
     - Tmux
         * [tmux安装](Tool/Tmux/tmux安装.md)
     - VSCode
-        * [linux下vscode terminal字体设置](Tool/VSCode/linux下vscode terminal字体设置.md)
+        * [linux下vscode terminal字体设置](Tool/VSCode/linux下vscode%20terminal字体设置.md)
         * [ssh内网穿透](Tool/VSCode/ssh内网穿透.md)
         * [ssh远程开发](Tool/VSCode/ssh远程开发.md)
     - [国内下载镜像慢的问题](Tool/国内下载镜像慢的问题.md)
