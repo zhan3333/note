@@ -1,6 +1,6 @@
 # 编程笔记
 
-[笔记目录](SUMMARY.md)
+[目录](SUMMARY.md)
 
 ## 记录编程生涯中经验
 
@@ -13,7 +13,7 @@
 
 ## 欢迎 star
 
-- [go-framework](https://github.com/zhan3333/go-framework): gin 框架脚手架 
+- [go-framework](https://github.com/zhan3333/go-framework): gin 框架脚手架
 
 - [goutil](https://github.com/zhan3333/goutil): golang 泛型写的一些辅助开发方法
 
@@ -21,4 +21,6 @@
 
 ## 其他
 
-markdown 语法: https://markdown.com.cn/basic-syntax/links.html
+[markdown 语法文档](https://markdown.com.cn/basic-syntax/links.html)
+
+[技术面试最后反问面试官的话](https://github.com/yifeikong/reverse-interview-zh)
