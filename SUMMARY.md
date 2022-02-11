@@ -155,8 +155,8 @@
     * [Ubuntu上安装小飞机](programme/Linux/Ubuntu上安装小飞机.md)
   
   - MacOS
-    
-    * [brew使用](programme/MacOS/brew使用.md)
+    - [MSI B360M 主板黑苹果安装过程](MacOS/MSI%20B360M%20黑苹果.md)
+    - [brew使用](MacOS/brew使用.md)
   
   - PHP
     
