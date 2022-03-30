@@ -24,3 +24,5 @@
 [markdown 语法文档](https://markdown.com.cn/basic-syntax/links.html)
 
 [技术面试最后反问面试官的话](https://github.com/yifeikong/reverse-interview-zh)
+
+[编程习惯](http://daily.zhihu.com/story/9744766)
