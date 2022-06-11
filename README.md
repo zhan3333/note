@@ -26,3 +26,5 @@
 [技术面试最后反问面试官的话](https://github.com/yifeikong/reverse-interview-zh)
 
 [编程习惯](http://daily.zhihu.com/story/9744766)
+
+[FFmpeg 视频处理入门教程](https://www.ruanyifeng.com/blog/2020/01/ffmpeg.html)
