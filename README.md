@@ -28,3 +28,5 @@
 [编程习惯](http://daily.zhihu.com/story/9744766)
 
 [FFmpeg 视频处理入门教程](https://www.ruanyifeng.com/blog/2020/01/ffmpeg.html)
+
+[做了 6 年程序员，我学到的 10 条经验](https://lutaonan.com/blog/things-i-learnt-after-6-years-as-software-engineer/)
