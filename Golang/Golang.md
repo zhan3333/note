@@ -904,3 +904,21 @@ gin 中间件利用函数调用栈 `后进先出` 的特点, 完成中间件在�
 ## reflect 的使用
 
 ## 协程池的使用
+
+## go string 与 []byte 互转以及风险
+
+[string & []byte 互转](https://segmentfault.com/a/1190000037679588)
+
+源码看: src/runtime/string.go stringtoslicebyte / slicebytetostring
+
+string 是不可变的，[]byte 是可变的，在 []byte -> string 的强制转换场景中，如果更改了 []byte，会产生无法捕获的错误。
+
+标准转换中:
+
+- string -> []byte: 由于 string 是不可变的，所以新的 []byte 直接改为指向 string 底层的 []byte 完成转换。当 string len > 32 时，会发生一次 mallocgc() 为 slice 重新分配内存。
+- []byte -> string: 通过 memmove() 进行 byte copy 到 string。当 slice len > 32 时会发生一次 mallocgc() 内存分配。
+
+强制转换中:
+
+- string -> []byte: slice 底层 array 指针直接指指向 string 底层 array (与标准转换看起来逻辑一致，没有内存 copy)
+- []byte -> string: string 底层 array 指针直接指向 slice 底层 array
