@@ -30,3 +30,7 @@
 [FFmpeg 视频处理入门教程](https://www.ruanyifeng.com/blog/2020/01/ffmpeg.html)
 
 [做了 6 年程序员，我学到的 10 条经验](https://lutaonan.com/blog/things-i-learnt-after-6-years-as-software-engineer/)
+
+[图标](https://blog.ralph.wang/articles/67cff6f8_%E5%B0%8F%E5%9B%BE%E6%A0%87_%E5%A4%A7%E5%AD%A6%E9%97%AE)
+
+[时间](https://blog.ralph.wang/articles/e76960f7_%E6%97%B6%E9%97%B4)
