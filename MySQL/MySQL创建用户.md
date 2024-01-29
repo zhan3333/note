@@ -45,8 +45,21 @@ user@host 表示授予的用户以及允许该用户登录的 IP 地址:
 
 ## 修改密码
 
+8.0 之前
+
 ```sql
 update mysql.user set password = password('test') where user = 'test' and host = '%';
+flush privileges;
+```
+
+8.0 之后
+
+```shell
+use mysql;
+alter USER 'root'@'localhost' IDENTIFIED BY 'nwe_password';
+update user set host = "%" where user='root'; // 修改远程连接密码
+update user set host = "localhost" where user='root'; // 修改本地连接密码
+# 刷新权限
 flush privileges;
 ```
 
